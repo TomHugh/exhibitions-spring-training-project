@@ -3,67 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="admin.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar sticky-top bg-light">
-    <div class="container">
-        <a class="navbar-brand" href="#">Exhibitions App</a>
-        <button type="button" class="btn btn-primary">Login</button>
+<div th:replace="fragments/admin-navigation :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/admin-navigation :: sidebar"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>$totalIds</th>
+                    <th scope="col">Theme</th>
+                    <th scope="col">Localization</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Working hours</th>
+                    <th scope="col">Ticket price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                <tr th:each="exhibition:${exhibitions}">
+                    <th>
+                        <div class="btn-group" role="group" aria-label="EditCancel">
+                            <button type="button" class="btn btn-outline-primary">Edit</button>
+                            <button type="button" class="btn btn-outline-danger">Cancel</button>
+                        </div>
+                    </th>
+                    <td th:text="${exhibition.theme}">Theme</td>
+                    <td>
+                        <ul class="list-unstyled" th:each="hall:${exhibition.halls}">
+                            <li th:text="${hall.name}">Localization</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li th:text="${exhibition.startOfOperation}"></li>
+                            <li th:text="${exhibition.endOfOperation}"></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li th:text="${exhibition.workingStart}"></li>
+                            <li th:text="${exhibition.workingEnd}"></li>
+                        </ul>
+                    </td>
+
+                    <td th:text="${exhibition.ticketPrice}">Ticket Price</td>
+                    <td>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user:${users}">
+                    <th scope="row" th:text="${user.id}">Id</th>
+                    <td th:text="${user.username}">Name</td>
+                </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Exhibition</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order:${orders}">
+                    <th scope="row" th:text="${order.id}">Id</th>
+                    <td th:text="${order.user.username}">Username</td>
+                    <td th:text="${order.exhibition}">Exhibition</td>
+                </tr>
+                </tbody>
+            </table>
+        </main>
+
     </div>
-</nav>
-<div class="container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Theme</th>
-            <th scope="col">Duration</th>
-            <th scope="col">Working hours</th>
-            <th scope="col">Ticket price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="exhibition:${exhibitions}">
-            <th scope="row" th:text="${exhibition.id}">Id</th>
-            <td th:text="${exhibition.theme}">Theme</td>
-            <td th:text="${exhibition.startOfOperation} + ' to ' + ${exhibition.endOfOperation}">Duration</td>
-            <td th:text="${exhibition.workingStart} + ' to ' + ${exhibition.workingEnd}">Working Hours</td>
-            <td th:text="${exhibition.ticketPrice}">Ticket Price</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user:${users}">
-            <th scope="row" th:text="${user.id}">Id</th>
-            <td th:text="${user.username}">Name</td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Exhibition</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order:${orders}">
-            <th scope="row" th:text="${order.id}">Id</th>
-            <td th:text="${order.user.username}">Username</td>
-            <td th:text="${order.exhibition}">Exhibition</td>
-        </tr>
-        </tbody>
-    </table>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>

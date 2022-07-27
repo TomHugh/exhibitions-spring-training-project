@@ -1,6 +1,8 @@
 INSERT INTO USERS (USERNAME, PASSWORD, ROLE) VALUES
 ('tsliwinski', 'password', 'admin'),
-('user1', 'user1', 'user');
+('user1', 'user1', 'user'),
+('user2', 'user2', 'user'),
+('user3', 'user3', 'user');
 
 INSERT INTO HALLS (NAME) VALUES
 ('HALL A'),
