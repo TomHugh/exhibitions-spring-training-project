@@ -27,9 +27,11 @@ public class AdminController {
 
     @GetMapping
     public String getAdminView(Model model) {
-        model.addAttribute("exhibitions", exhibitionService.getAllExhibitons());
+        model.addAttribute("exhibitions", exhibitionService.getAllExhibitions());
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("orders", orderService.getAllOrders());
+        model.addAttribute("numberOfUsers", exhibitionService.getQuantity());
+
         return "admin";
     }
 

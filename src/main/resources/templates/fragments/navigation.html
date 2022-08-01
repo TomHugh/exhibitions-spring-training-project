@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark" th:fragment="navbar">
+        <div class="container">
+            <a class="navbar-brand">Exhibitions App</a>
+            <div class="dropdown ms-auto px-2">
+                <button th:text="#{lang.change}" type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Change language
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a th:text="#{lang.en}" class="dropdown-item" href="/?lang=english">English</a></li>
+                    <li><a th:text="#{lang.pl}" class="dropdown-item" href="/?lang=pl">Polish</a></li>
+                    <li><a th:text="#{lang.ua}" class="dropdown-item" href="/?lang=ua">Ukrainian</a></li>
+                </ul>
+            </div>
+            <button th:text="#{signin}" type="button" class="btn btn-primary">Sign in</button>
+
+        </div>
+    </nav>
+</body>
+</html>

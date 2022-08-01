@@ -9,12 +9,19 @@ import java.util.List;
 @Service
 public class ExhibitionService {
     private final ExhibitionRepository exhibitionRepository;
-
     public ExhibitionService(ExhibitionRepository exhibitionRepository) {
         this.exhibitionRepository = exhibitionRepository;
     }
 
-    public List<Exhibition> getAllExhibitons() {
-        return exhibitionRepository.findAll();
+    private int quantity = 0;
+
+    public List<Exhibition> getAllExhibitions() {
+        List<Exhibition> exhibitions = exhibitionRepository.findAll();
+        quantity = exhibitions.size();
+        return exhibitions;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 }

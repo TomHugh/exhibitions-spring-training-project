@@ -1,11 +1,19 @@
 package com.sliwinski.exhibitions.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name="EXHIBITIONS")
 public class Exhibition {
@@ -26,84 +34,6 @@ public class Exhibition {
     @Column(name = "TICKET_PRICE", nullable = false)
     private float ticketPrice;
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "EXHIBITIONS_HALLS", joinColumns = @JoinColumn(name = "EXHIBITION_ID"), inverseJoinColumns = @JoinColumn(name = "HALL_ID"))
-    private List<Hall> halls;
-
-    public Exhibition() {
-    }
-
-    public Exhibition(int id, String theme, LocalDate startOfOperation, LocalDate endOfOperation, LocalTime workingStart, LocalTime workingEnd, float ticketPrice, List<Hall> halls) {
-        this.id = id;
-        this.theme = theme;
-        this.startOfOperation = startOfOperation;
-        this.endOfOperation = endOfOperation;
-        this.workingStart = workingStart;
-        this.workingEnd = workingEnd;
-        this.ticketPrice = ticketPrice;
-        this.halls = halls;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public LocalDate getStartOfOperation() {
-        return startOfOperation;
-    }
-
-    public void setStartOfOperation(LocalDate startOfOperation) {
-        this.startOfOperation = startOfOperation;
-    }
-
-    public LocalDate getEndOfOperation() {
-        return endOfOperation;
-    }
-
-    public void setEndOfOperation(LocalDate endOfOperation) {
-        this.endOfOperation = endOfOperation;
-    }
-
-    public LocalTime getWorkingStart() {
-        return workingStart;
-    }
-
-    public void setWorkingStart(LocalTime workingStart) {
-        this.workingStart = workingStart;
-    }
-
-    public LocalTime getWorkingEnd() {
-        return workingEnd;
-    }
-
-    public void setWorkingEnd(LocalTime workingEnd) {
-        this.workingEnd = workingEnd;
-    }
-
-    public float getTicketPrice() {
-        return ticketPrice;
-    }
-
-    public void setTicketPrice(float ticketPrice) {
-        this.ticketPrice = ticketPrice;
-    }
-
-    public List<Hall> getHalls() {
-        return halls;
-    }
-
-    public void setHalls(List<Hall> halls) {
-        this.halls = halls;
-    }
+    @JoinTable(name = "EXHIBITIONS_LOCATIONS", joinColumns = @JoinColumn(name = "EXHIBITION_ID"), inverseJoinColumns = @JoinColumn(name = "LOCATION_ID"))
+    private List<Location> locations;
 }

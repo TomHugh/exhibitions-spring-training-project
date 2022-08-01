@@ -1,10 +1,8 @@
 INSERT INTO USERS (USERNAME, PASSWORD, ROLE) VALUES
-('tsliwinski', 'password', 'admin'),
-('user1', 'user1', 'user'),
-('user2', 'user2', 'user'),
-('user3', 'user3', 'user');
+('admin', '$2a$10$Rs6OCZ1cq2IVVVU0SqUnL.4s3WMDqAf1TgxVavND/NHzLOZfrgWqO', 'admin'),
+('user', '$2a$10$S6bhKvW538VGJt/1U05s/uIdsgxvA09Rv3RT/5B0Zr4PkYDdvn8N2', 'user');
 
-INSERT INTO HALLS (NAME) VALUES
+INSERT INTO LOCATIONS (NAME) VALUES
 ('HALL A'),
 ('HALL B'),
 ('HALL C'),
@@ -15,7 +13,7 @@ INSERT INTO EXHIBITIONS (theme, start_of_operation, end_of_operation, working_st
 ('Space', '2022-11-01', '2022-11-30', '10:00', '20:00', 40.00),
 ('Oceans', '2022-12-01', '2022-12-30', '10:00', '20:00', 43.00);
 
-INSERT INTO EXHIBITIONS_HALLS (exhibition_id, hall_id) values
+INSERT INTO EXHIBITIONS_LOCATIONS (exhibition_id, location_id) values
 (1, 1),
 (1, 2),
 (1, 4),

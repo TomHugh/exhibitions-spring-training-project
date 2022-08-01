@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="admin.css" rel="stylesheet">
+    <link href="/css/admin.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="fragments/admin-navigation :: navbar"></div>
@@ -19,7 +19,7 @@
                 <tr>
                     <th>$totalIds</th>
                     <th scope="col">Theme</th>
-                    <th scope="col">Localization</th>
+                    <th scope="col">Location</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Working hours</th>
                     <th scope="col">Ticket price</th>
@@ -36,8 +36,8 @@
                     </th>
                     <td th:text="${exhibition.theme}">Theme</td>
                     <td>
-                        <ul class="list-unstyled" th:each="hall:${exhibition.halls}">
-                            <li th:text="${hall.name}">Location</li>
+                        <ul class="list-unstyled" th:each="location:${exhibition.locations}">
+                            <li th:text="${location.name}">Location</li>
                         </ul>
                     </td>
                     <td>
@@ -62,7 +62,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" th:text="${numberOfUsers}"></th>
                     <th scope="col">Name</th>
                 </tr>
                 </thead>

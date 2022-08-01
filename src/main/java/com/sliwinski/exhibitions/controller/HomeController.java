@@ -17,8 +17,8 @@ public class HomeController {
     }
 
     @GetMapping
-    public String getHomeView(Model model) {
-        model.addAttribute("exhibitions", exhibitionService.getAllExhibitons());
+    public String getHome(Model model) {
+        model.addAttribute("exhibitions", exhibitionService.getAllExhibitions());
         return "home";
     }
 

@@ -5,13 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class CheckLocations {
+public class CheckLocationsController {
 
 
 
 
     @GetMapping("/check-locations")
-    public String getAddExhibitionView(Model model) {
+    public String getCheckLocations(Model model) {
         return "check-locations";
     }
 
