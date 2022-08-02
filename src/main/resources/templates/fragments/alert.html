@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div  th:fragment="alert" th:if="${message}" th:classappend="${alert_class}" class="alert" role="alert">
+    <p th:text="#{${message}}">Message</p>
+</div>
+</body>
+</html>
