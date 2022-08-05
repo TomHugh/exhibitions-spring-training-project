@@ -8,7 +8,7 @@ INSERT INTO LOCATIONS (NAME) VALUES
 ('HALL C'),
 ('HALL D');
 
-INSERT INTO EXHIBITIONS (theme, start_of_operation, end_of_operation, working_start, working_end, ticket_price) values
+INSERT INTO EXHIBITIONS (theme, start_date, end_date, opening_hour, closing_hour, ticket_price) values
 ('Earth', '2022-10-01', '2022-10-30', '10:00', '20:00', 45.00),
 ('Space', '2022-11-01', '2022-11-30', '10:00', '20:00', 40.00),
 ('Oceans', '2022-12-01', '2022-12-30', '10:00', '20:00', 43.00);

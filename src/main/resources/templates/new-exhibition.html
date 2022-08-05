@@ -21,13 +21,13 @@
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input type="date" class="form-control" id="start" placeholder="Start">
+                                        <input type="date" class="form-control" id="start" placeholder="Start" required>
                                         <label for="start">Start date:</label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input type="date" class="form-control" id="end" placeholder="End">
+                                        <input type="date" class="form-control" id="end" placeholder="End" required>
                                         <label for="end">End date:</label>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <div class="form-check">
+                                    <div class="form-check"  required>
                                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                         <label class="form-check-label" for="flexCheckDefault">
                                             Name of the HALL
@@ -49,20 +49,20 @@
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="theme" placeholder="Theme">
+                                    <input type="text" class="form-control" id="theme" placeholder="Theme" required>
                                     <label for="theme">Exhibition theme:</label>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input type="time" class="form-control" id="open" placeholder="Open">
+                                        <input type="time" class="form-control" id="open" placeholder="Open" required>
                                         <label for="open">Opening hour:</label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input type="time" class="form-control" id="close" placeholder="Close">
+                                        <input type="time" class="form-control" id="close" placeholder="Close" required>
                                         <label for="close">Closing hour:</label>
                                     </div>
                                 </div>
@@ -70,17 +70,17 @@
                             <div class="row g-2 py-3 justify-content-end">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="number" class="form-control" id="price" placeholder="Price">
+                                        <input type="number" class="form-control" id="price" placeholder="Price" required>
                                         <label for="open">Ticket price:</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <button class="btn btn-outline-warning col-12" type="submit">Cancel</button>
+                                    <button th:text="cancel" class="btn btn-outline-warning col-12" type="submit">Cancel</button>
                                 </div>
                                 <div class="col-md">
-                                    <button class="btn btn-outline-success col-12" type="submit">Add</button>
+                                    <button th:text="add" class="btn btn-outline-success col-12" type="submit">Add</button>
                                 </div>
                             </div>
                         </form>

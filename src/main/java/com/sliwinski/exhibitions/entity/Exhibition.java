@@ -23,14 +23,14 @@ public class Exhibition {
     private int id;
     @Column(name = "THEME", nullable = false, unique = true)
     private String theme;
-    @Column(name = "START_OF_OPERATION", nullable = false)
-    private LocalDate startOfOperation;
-    @Column(name = "END_OF_OPERATION", nullable = false)
-    private LocalDate endOfOperation;
-    @Column(name = "WORKING_START", nullable = false)
-    private LocalTime workingStart;
-    @Column(name = "WORKING_END", nullable = false)
-    private LocalTime workingEnd;
+    @Column(name = "START_DATE", nullable = false)
+    private LocalDate startDate;
+    @Column(name = "END_DATE", nullable = false)
+    private LocalDate endDate;
+    @Column(name = "OPENING_HOUR", nullable = false)
+    private LocalTime openingHour;
+    @Column(name = "CLOSING_HOUR", nullable = false)
+    private LocalTime closingHour;
     @Column(name = "TICKET_PRICE", nullable = false)
     private float ticketPrice;
     @ManyToMany(cascade = CascadeType.PERSIST)

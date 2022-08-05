@@ -6,7 +6,6 @@ import com.sliwinski.exhibitions.repository.ExhibitionRepository;
 import com.sliwinski.exhibitions.repository.OrderRepository;
 import com.sliwinski.exhibitions.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
