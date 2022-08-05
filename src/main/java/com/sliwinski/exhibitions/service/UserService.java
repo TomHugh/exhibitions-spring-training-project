@@ -34,5 +34,13 @@ public class UserService implements UserDetailsService {
         user.setRole(Role.USER);
         userRepository.save(user);
     }
+
+    public void createAdmin(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(Role.ADMIN);
+        userRepository.save(user);
+    }
 }
 

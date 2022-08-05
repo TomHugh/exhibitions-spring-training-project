@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,12 +18,17 @@ import javax.persistence.*;
 @Table(name = "ORDERS")
 public class Order {
     @Id
-    @Column(name = "ORDER_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ORDER_ID", nullable = false, updatable = false)
     private int id;
+    @CreationTimestamp
+    @Column(name = "ORDER_TS", nullable = false)
+    private LocalDateTime timestamp;
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
     @ManyToOne
     @JoinColumn(name = "EXHIBITION_ID", nullable = false)
     private Exhibition exhibition;
+
 }

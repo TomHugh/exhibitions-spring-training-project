@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,29 +32,43 @@ public class AuthController {
         return "signin";
     }
 
-//    @PostMapping("/signin")
-//    public String signinUser(Model model) {
-//        return "home";
-//    }
-
-
     @GetMapping("/register")
     public String getRegister(Model model) {
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestParam Map<String, String> body, Model model) {
+    public String registerUser(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
         try {
             Validate.password(body.get("password"), body.get("retyped_password"));
         } catch (Exception e) {
-            model.addAttribute("alert_class", "alert-danger");
+            model.addAttribute("class", "alert-danger");
             model.addAttribute("message", e.getMessage());
             return "register";
         }
         userService.createUser(body.get("username"), passwordEncoder.encode(body.get("password")));
-        return "redirect:/?alert=alert-success&message=User registered. Please Log in";
+        redirectAttributes.addFlashAttribute("class", "alert-success");
+        redirectAttributes.addFlashAttribute("message", "User registered. Please Log in");
+        return "redirect:/";
     }
 
+    @GetMapping("admin/new-admin")
+    public String getNewAdmin(Model model) {
+        return "new-admin";
+    }
 
+    @PostMapping("admin/new-admin")
+    public String registerAdmin(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            Validate.password(body.get("password"), body.get("retyped_password"));
+        } catch (Exception e) {
+            model.addAttribute("class", "alert-danger");
+            model.addAttribute("message", e.getMessage());
+            return "new-admin";
+        }
+        userService.createAdmin(body.get("username"), passwordEncoder.encode(body.get("password")));
+        redirectAttributes.addFlashAttribute("class", "alert-success");
+        redirectAttributes.addFlashAttribute("message", "Admin created");
+        return "redirect:/admin";
+    }
 }

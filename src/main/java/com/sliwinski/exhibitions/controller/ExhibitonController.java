@@ -5,15 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("/exhibition")
+@Controller("admin/")
 public class ExhibitonController {
 
 
 
 
-    @GetMapping("/add")
+    @GetMapping("/new-exhibition")
     public String getAddExhibitionView(Model model) {
-        return "add-exhibition";
+        return "new-exhibition";
     }
 
 }

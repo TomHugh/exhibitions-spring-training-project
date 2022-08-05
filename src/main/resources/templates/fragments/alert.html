@@ -3,8 +3,14 @@
 <head>
 </head>
 <body>
-<div  th:fragment="alert" th:if="${message}" th:classappend="${alert_class}" class="alert" role="alert">
-    <p th:text="#{${message}}">Message</p>
-</div>
+<div  id="alert" th:fragment="alert" th:if="${message}" th:classappend="${class}" th:text="#{${message}}" class="alert py-1" role="alert">Message</div>
+
+<!--Hide alert after 2s-->
+<!--<script>-->
+<!--    setTimeout(() => {-->
+<!--    const alert = document.getElementById('alert');-->
+<!--    alert.style.display = 'none';-->
+<!--    }, 2000);-->
+<!--</script>-->
 </body>
 </html>
