@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Check locations</title>
+    <title>Choose locations</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="/css/admin.css" rel="stylesheet">
@@ -14,27 +14,40 @@
     <div class="row">
         <div th:replace="fragments/admin-navigation :: sidebar"></div>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="container ">
+            <div class="container align-middle">
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form th:action="@{/admin/new-exhibition/check-locations}" method="post">
+                        <form th:action="@{/admin/new-exhibition/choose-locations}" method="post">
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input name="startDate" type="date" class="form-control" id="start" placeholder="Start">
-                                        <label th:text="#{start_date}" for="start">Start date:</label>
+                                        <input th:value="${startDate}" name="startDate"type="date" class="form-control" id="start" placeholder="Start" disabled required>
+                                        <label for="start">Start date:</label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input name="endDate" type="date" class="form-control" id="end" placeholder="End">
-                                        <label th:text="#{end_date}" for="end">End date:</label>
+                                        <input th:value="${endDate}" name="endDate" type="date" class="form-control" id="end" placeholder="End" disabled required>
+                                        <label for="end">End date:</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <button th:text="#{check_locations}" class="btn btn-outline-info col-12" type="submit">Check available locations</button>
+                                    <div th:each="location:${locations}" name="locations" class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label th:text="${location.name}" class="form-check-label" for="flexCheckDefault">
+                                            Location
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2 py-3">
+                                <div class="col-md">
+                                    <a th:text="#{back}" href="/admin/new-exhibition/check-locations" class="btn btn-outline-warning col-12" role="button">Back</a>
+                                </div>
+                                <div class="col-md">
+                                    <button th:text="#{choose_locations}" class="btn btn-outline-info col-12" type="submit">Choose locations</button>
                                 </div>
                             </div>
                         </form>

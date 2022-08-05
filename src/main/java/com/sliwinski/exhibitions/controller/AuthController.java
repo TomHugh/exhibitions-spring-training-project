@@ -40,7 +40,7 @@ public class AuthController {
     @PostMapping("/register")
     public String registerUser(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
         try {
-            Validate.password(body.get("password"), body.get("retyped_password"));
+            Validate.password(body.get("password"), body.get("retypedPassword"));
         } catch (Exception e) {
             model.addAttribute("class", "alert-danger");
             model.addAttribute("message", e.getMessage());
@@ -48,7 +48,7 @@ public class AuthController {
         }
         userService.createUser(body.get("username"), passwordEncoder.encode(body.get("password")));
         redirectAttributes.addFlashAttribute("class", "alert-success");
-        redirectAttributes.addFlashAttribute("message", "User registered. Please Log in");
+        redirectAttributes.addFlashAttribute("message", "user_registered");
         return "redirect:/";
     }
 
@@ -60,7 +60,7 @@ public class AuthController {
     @PostMapping("admin/new-admin")
     public String registerAdmin(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
         try {
-            Validate.password(body.get("password"), body.get("retyped_password"));
+            Validate.password(body.get("password"), body.get("retypedPassword"));
         } catch (Exception e) {
             model.addAttribute("class", "alert-danger");
             model.addAttribute("message", e.getMessage());
@@ -68,7 +68,7 @@ public class AuthController {
         }
         userService.createAdmin(body.get("username"), passwordEncoder.encode(body.get("password")));
         redirectAttributes.addFlashAttribute("class", "alert-success");
-        redirectAttributes.addFlashAttribute("message", "Admin created");
+        redirectAttributes.addFlashAttribute("message", "admin_created");
         return "redirect:/admin";
     }
 }
