@@ -24,5 +24,4 @@ public class OrderController {
         redirectAttributes.addFlashAttribute("message", "ticket_purchased");
         return "redirect:/";
     }
-
 }

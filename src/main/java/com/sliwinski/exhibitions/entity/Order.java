@@ -19,7 +19,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ID", nullable = false, updatable = false)
-    private int id;
+    private long id;
     @CreationTimestamp
     @Column(name = "ORDER_TS", nullable = false)
     private LocalDateTime timestamp;

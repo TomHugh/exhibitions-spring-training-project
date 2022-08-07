@@ -5,11 +5,11 @@
 <body>
     <nav class="navbar navbar-dark sticky-top bg-dark" th:fragment="navbar">
         <div class="container">
-            <a class="navbar-brand">Exhibitions App</a>
+            <a class="navbar-brand" href="/">Exhibitions App</a>
             <span th:if="${username}" th:text="#{welcome_user} + ' ' + ${username} + '!'" class="navbar-text"></span>
             <span th:unless="${username}" th:text="#{welcome}" class="navbar-text"></span>
             <div class=" d-flex ms-auto">
-                <a th:if=${username} th:text="#{view_purchases}" href="/view-purchases" role="button" class="btn btn-outline-secondary ms-2">View purchases</a>
+                <a th:if=${username} th:text="#{view_orders}" href="/orders" role="button" class="btn btn-outline-secondary ms-2">View orders</a>
                 <div class="dropdown ms-2">
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
@@ -21,7 +21,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="?lang=english">English</a></li>
                         <li><a class="dropdown-item" href="?lang=pl">Polski</a></li>
-                        <li><a class="dropdown-item" href="?lang=ua">Український</a></li>
+                        <li><a class="dropdown-item" href="?lang=ua">Українська</a></li>
                     </ul>
                 </div>
                 <a th:unless=${username} th:text="#{signin}" href="/signin" role="button" class="btn btn-primary ms-2">Sign in</a>

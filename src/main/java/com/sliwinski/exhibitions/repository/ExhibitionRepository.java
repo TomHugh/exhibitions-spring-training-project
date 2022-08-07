@@ -8,9 +8,8 @@ import java.util.List;
 
 public interface ExhibitionRepository extends JpaRepository<Exhibition, Integer> {
 
-    @Override
     @Query("select distinct e from Exhibition e join fetch e.locations")
-    List<Exhibition> findAll();
+    List<Exhibition> findAllDistinct();
 
     Exhibition findById(int exhibitionId);
 }

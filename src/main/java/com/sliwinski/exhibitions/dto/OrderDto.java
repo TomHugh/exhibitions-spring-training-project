@@ -4,12 +4,10 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 @Getter
 @Builder
-public class UserDto {
+public class OrderDto {
     private long id;
-    private String username;
-
+    private String exhibitionTheme;
 }

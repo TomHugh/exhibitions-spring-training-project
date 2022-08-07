@@ -16,12 +16,16 @@ public class ExhibitionService {
     private int quantity = 0;
 
     public List<Exhibition> getAllExhibitions() {
-        List<Exhibition> exhibitions = exhibitionRepository.findAll();
+        List<Exhibition> exhibitions = exhibitionRepository.findAllDistinct();
         quantity = exhibitions.size();
         return exhibitions;
     }
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void createExhibition(Exhibition exhibition) {
+        exhibitionRepository.save(exhibition);
     }
 }

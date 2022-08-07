@@ -18,8 +18,8 @@ import java.util.List;
 @Table(name="EXHIBITIONS")
 public class Exhibition {
     @Id
-    @GeneratedValue
-    @Column(name = "EXHIBITION_ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "EXHIBITION_ID", nullable = false, updatable = false)
     private int id;
     @Column(name = "THEME", nullable = false, unique = true)
     private String theme;

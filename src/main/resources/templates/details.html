@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>New exhibition</title>
+    <title>New exhibition details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="/css/admin.css" rel="stylesheet">
@@ -21,23 +21,24 @@
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input th:value="${startDate}" name="startDate"type="date" class="form-control" id="start" placeholder="Start" required disabled>
+                                        <input th:value="${startDate}" name="startDate"type="date" class="form-control" id="start" readonly>
                                         <label for="start">Start date:</label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input th:value="${endDate}" name="endDate" type="date" class="form-control" id="end" placeholder="End" required disabled>
+                                        <input th:value="${endDate}" name="endDate" type="date" class="form-control" id="end" readonly>
                                         <label for="end">End date:</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
-                                <div class="col-md">
-                                    <div th:each="location:${locations}" class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" disabled>
-                                        <label th:text="$location.name" class="form-check-label" for="flexCheckDefault">
-                                            Location
+                                <div class="col-md border rounded">
+                                    <div class="form-floating">Choose location:</div>
+                                    <div th:each="item : ${chooseLocations}" class="form-check">
+                                        <input th:field="*{locations}" th:value="${item.id}" name="location" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label th:text="${item.name}" class="form-check-label" for="flexCheckDefault">
+                                            Locations
                                         </label>
                                     </div>
                                 </div>
@@ -66,16 +67,16 @@
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input name="ticketPrice" type="number" class="form-control" id="price" placeholder="Price" required>
-                                        <label for="open">Ticket price:</label>
+                                        <label for="price">Ticket price:</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <button th:text="cancel" class="btn btn-outline-warning col-12" type="submit">Cancel</button>
+                                    <a th:text="#{back}" href="/admin/new-exhibition/check-locations" class="btn btn-outline-warning col-12" role="button">Back</a>
                                 </div>
                                 <div class="col-md">
-                                    <button th:text="add" class="btn btn-outline-success col-12" type="submit">Add</button>
+                                    <button th:text="#{add}" class="btn btn-outline-success col-12" type="submit">Add</button>
                                 </div>
                             </div>
                         </form>

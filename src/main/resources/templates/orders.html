@@ -46,37 +46,17 @@
         <thead>
         <tr>
             <th scope="col"></th>
-            <th th:text="#{theme}" scope="col">Theme</th>
-            <th th:text="#{duration}" scope="col">Duration</th>
-            <th th:text="#{working_hours}" scope="col">Working hours</th>
-            <th th:text="#{location}" scope="col">Location</th>
-            <th th:text="#{ticket_price}" scope="col">Ticket price</th>
+            <th th:text="#{order_id}" scope="col">Ticket ID</th>
+            <th th:text="#{exhibition_theme}" scope="col">Exhibition theme</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="exhibition:${exhibitions}">
-            <th>
+        <tr th:each="order:${orders}">
+            <td>
                 <button th:text="#{cancel}" type="button" class="btn btn-outline-danger">Cancel</button>
-            </th>
-            <td th:text="${exhibition.theme}">Theme</td>
-            <td>
-                <ul class="list-unstyled">
-                    <li th:text="${exhibition.startOfOperation}"></li>
-                    <li th:text="${exhibition.endOfOperation}"></li>
-                </ul>
             </td>
-            <td>
-                <ul class="list-unstyled">
-                    <li th:text="${exhibition.workingStart}"></li>
-                    <li th:text="${exhibition.workingEnd}"></li>
-                </ul>
-            </td>
-            <td>
-                <ul class="list-unstyled" th:each="location:${exhibition.locations}">
-                    <li th:text="${location.name}">Location</li>
-                </ul>
-            </td>
-            <td th:text="${exhibition.ticketPrice}">Ticket Price</td>
+            <td th:text="${order.id}">Order ID</td>
+            <td th:text="${order.exhibitionTheme}">Exhibition theme</td>
         </tr>
         </tbody>
     </table>
