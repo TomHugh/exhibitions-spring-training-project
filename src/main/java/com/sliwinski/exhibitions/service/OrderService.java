@@ -18,25 +18,20 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ExhibitionRepository exhibitionRepository;
     private final AuthService authService;
-    private final OrderDtoMapper orderDtoMapper;
 
     public OrderService(OrderRepository orderRepository, UserRepository userRepository, ExhibitionRepository exhibitionRepository, AuthService authService, OrderDtoMapper orderDtoMapper) {
         this.orderRepository = orderRepository;
         this.exhibitionRepository = exhibitionRepository;
         this.authService = authService;
-        this.orderDtoMapper = orderDtoMapper;
     }
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    public List<OrderDto> getUserOrders() {
+    public List<Order> getUserOrders() {
         User user = authService.getUser();
-        return orderRepository.findByUserId(user.getId())
-                .stream()
-                .map(orderDtoMapper::toDto)
-                .collect(toList());
+        return orderRepository.findByUserId(user.getId());
     }
 
     public void createOrder(int exhibitionId) {
