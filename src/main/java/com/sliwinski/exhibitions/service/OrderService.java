@@ -1,37 +1,52 @@
 package com.sliwinski.exhibitions.service;
 
-import com.sliwinski.exhibitions.dto.OrderDto;
 import com.sliwinski.exhibitions.dto.mapper.OrderDtoMapper;
 import com.sliwinski.exhibitions.entity.Order;
 import com.sliwinski.exhibitions.entity.User;
 import com.sliwinski.exhibitions.repository.ExhibitionRepository;
 import com.sliwinski.exhibitions.repository.OrderRepository;
 import com.sliwinski.exhibitions.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 public class OrderService {
+    private final int PAGE_SIZE = 10;
+
     private final OrderRepository orderRepository;
     private final ExhibitionRepository exhibitionRepository;
     private final AuthService authService;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository, ExhibitionRepository exhibitionRepository, AuthService authService, OrderDtoMapper orderDtoMapper) {
+    public OrderService(OrderRepository orderRepository, ExhibitionRepository exhibitionRepository, AuthService authService) {
         this.orderRepository = orderRepository;
         this.exhibitionRepository = exhibitionRepository;
         this.authService = authService;
     }
 
-    public List<Order> getAllOrders() {
-        return orderRepository.findAll();
+    private int totalPages;
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+
+    private Long quantity;
+    public Long getQuantity() {
+        return orderRepository.count();
+    }
+
+    public Page<Order> getAllOrders(int page) {
+        Page<Order> orders = orderRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.ASC, "id")));
+        totalPages = orders.getTotalPages();
+        return orders;
     }
 
     public List<Order> getUserOrders() {
-        User user = authService.getUser();
-        return orderRepository.findByUserId(user.getId());
+        long userId = authService.getUser().getId();
+        return orderRepository.findByUserId(userId);
     }
 
     public void createOrder(int exhibitionId) {
@@ -40,5 +55,9 @@ public class OrderService {
         order.setUser(user);
         order.setExhibition(exhibitionRepository.findById(exhibitionId));
         orderRepository.save(order);
+    }
+
+    public double getProfit() {
+        return orderRepository.getProfit();
     }
 }

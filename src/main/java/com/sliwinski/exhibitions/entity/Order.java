@@ -23,7 +23,7 @@ public class Order {
     @CreationTimestamp
     @Column(name = "ORDER_TS", nullable = false)
     private LocalDateTime timestamp;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
     @ManyToOne

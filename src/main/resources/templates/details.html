@@ -17,27 +17,27 @@
             <div class="container align-middle">
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form th:action="@{/admin/new-exhibition/details}" method="post">
+                        <form th:action="@{/admin/new-exhibition/details}" th:object="${exhibition}" method="post">
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input th:value="${startDate}" name="startDate"type="date" class="form-control" id="start" readonly>
+                                        <input th:field="*{startDate}" name="startDate"type="date" class="form-control" id="start" readonly>
                                         <label for="start">Start date:</label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input th:value="${endDate}" name="endDate" type="date" class="form-control" id="end" readonly>
+                                        <input th:field="*{endDate}" name="endDate" type="date" class="form-control" id="end" readonly>
                                         <label for="end">End date:</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md border rounded">
-                                    <div class="form-floating">Choose location:</div>
-                                    <div th:each="item : ${chooseLocations}" class="form-check">
-                                        <input th:field="*{locations}" th:value="${item.id}" name="location" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label th:text="${item.name}" class="form-check-label" for="flexCheckDefault">
+                                    <div class="form-floating py-1">Choose locations:</div>
+                                    <div th:each="location : ${locations}" class="form-check">
+                                        <input th:field="*{locations}" th:value="${location.id}" name="location" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label th:text="${location.name}" class="form-check-label" for="flexCheckDefault">
                                             Locations
                                         </label>
                                     </div>
@@ -45,20 +45,20 @@
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="form-floating">
-                                    <input name="theme" type="text" class="form-control" id="theme" placeholder="Theme" required>
+                                    <input th:field="*{theme}" name="theme" type="text" class="form-control" id="theme" placeholder="Theme" required>
                                     <label for="theme">Exhibition theme:</label>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input name="openingHour" type="time" class="form-control" id="open" placeholder="Open" required>
+                                        <input th:field="*{openingHour}" name="openingHour" type="time" class="form-control" id="open" placeholder="Open" required>
                                         <label for="open">Opening hour:</label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input name="closingHour" type="time" class="form-control" id="close" placeholder="Close" required>
+                                        <input th:field="*{closingHour}" name="closingHour" type="time" class="form-control" id="close" placeholder="Close" required>
                                         <label for="close">Closing hour:</label>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                             <div class="row g-2 py-3 justify-content-end">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input name="ticketPrice" type="number" class="form-control" id="price" placeholder="Price" required>
+                                        <input th:field="*{ticketPrice}" name="ticketPrice" type="number" class="form-control" id="price" placeholder="Price" required>
                                         <label for="price">Ticket price:</label>
                                     </div>
                                 </div>

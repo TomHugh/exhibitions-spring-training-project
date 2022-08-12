@@ -10,6 +10,7 @@ public class UserDtoMapper {
         return UserDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .role(user.getRole())
                 .build();
     }
 

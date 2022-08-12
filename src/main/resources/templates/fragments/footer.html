@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<footer class="footer mt-auto py-3 fixed-bottom bg-light">
+    <div class="container d-flex justify-content-center">
+        <ul th:if="${totalPages > 1}" class="pagination">
+            <li th:classappend="${page <= 1 ? 'disabled' : ''}" class="page-item"><a th:text="#{previous}" class="page-link" th:href="'?page=' + ${page - 1}">Previous</a></li>
+            <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}" th:classappend="${pageNumber == page ? 'active' : ''}" class="page-item"><a th:text="${pageNumber}" class="page-link" th:href="'?page=' + ${pageNumber}">Page</a></li>
+            <li th:classappend="${page >= totalPages ? 'disabled' : ''}" class="page-item"><a th:text="#{next}" class="page-link" th:href="'?page=' + ${page + 1}">Next</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>

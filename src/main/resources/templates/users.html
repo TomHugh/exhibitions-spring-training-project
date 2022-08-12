@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Orders</title>
+    <title>Users</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="/css/admin.css" rel="stylesheet">
@@ -18,14 +18,16 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th th:text="#{order_id}" scope="col">Order ID</th>
-                        <th th:text="#{timestamp}" scope="col">Timestamp</th>
+                        <th th:text="#{user_id}" scope="col">User ID</th>
+                        <th th:text="#{username}" scope="col">Username</th>
+                        <th th:text="#{role}" scope="col">Role</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="order:${orders}">
-                        <td th:text="${order.id}">Order ID</td>
-                        <td th:text="${order.timestamp}">Timestamp</td>
+                    <tr th:each="user:${users}">
+                        <td th:text="${user.id}">User ID</td>
+                        <td th:text="${user.username}">Username</td>
+                        <td th:text="${user.role}">Role</td>
                     </tr>
                     </tbody>
                 </table>

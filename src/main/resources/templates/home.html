@@ -9,34 +9,32 @@
 <body>
     <div th:replace="fragments/navigation :: navbar"></div>
     <div th:replace="fragments/alert :: alert"></div>
-    <form class="bg-light">
+    <form th:action="@{/exhibitions}" th:object="${search}" method="post" class="bg-light">
         <div class="container">
             <div class="row g-2 py-3">
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="date" class="form-control" id="start" placeholder="Start">
+                    <input th:field="*{from}" name="from" type="date" class="form-control" id="start">
                     <label th:text="#{search_from}" for="start">Search from:</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="date" class="form-control" id="end" placeholder="End">
+                    <input th:field="*{to}" name="to" type="date" class="form-control" id="end">
                     <label th:text="#{search_to}" for="end">Search to:</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Sort">
-                        <option th:text="#{theme_asc}" value="0">Theme [A-Z]</option>
-                        <option th:text="#{theme_dsc}" value="1">Theme [Z-A]</option>
-                        <option th:text="#{ticket_price_asc}" value="2">Ticket price ASC</option>
-                        <option th:text="#{ticket_price_dsc}" value="3">Ticket price DSC</option>
+                    <select th:field="*{sort}" class="form-select" id="floatingSelect" aria-label="Sort">
+                        <option th:each="sortOpt : ${T(com.sliwinski.exhibitions.controller.SortType).values()}" th:text="#{${sortOpt}}" th:value="${sortOpt}">Sort options</option>
                     </select>
                     <label th:text="#{sort}" for="floatingSelect">Sort by:</label>
                 </div>
             </div>
-            <div class="col-md d-flex justify-content-center">
-                <button th:text="#{apply}" class="btn btn-outline-secondary align-self-center" type="submit">Apply and search</button>
+            <div class="col-md d-flex">
+                <button th:text="#{apply}" class="btn btn-outline-secondary ms-2" type="submit">Apply</button>
+                <button th:text="#{reset}" onclick="location.href='?resetFilter=true'" class="btn btn-outline-secondary ms-2 text-center" type="button">Reset</button>
             </div>
         </div>
         </div>
@@ -49,8 +47,8 @@
             <th th:text="#{theme}" scope="col">Theme</th>
             <th th:text="#{duration}" scope="col">Duration</th>
             <th th:text="#{working_hours}" scope="col">Working hours</th>
-            <th th:text="#{location}" scope="col">Location</th>
             <th th:text="#{ticket_price}" scope="col">Ticket price</th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
@@ -71,16 +69,15 @@
                     <li th:text="${exhibition.closingHour}"></li>
                 </ul>
             </td>
-            <td>
-                <ul class="list-unstyled" th:each="location:${exhibition.locations}">
-                    <li th:text="${location.name}">Location</li>
-                </ul>
-            </td>
             <td th:text="${exhibition.ticketPrice}">Ticket Price</td>
+            <td>
+                <a th:text="#{details}" th:href="'/exhibitions/' + ${exhibition.id}" class="btn btn-outline-primary" role="button">Details</a>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
+<div th:replace="fragments/footer :: footer"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>

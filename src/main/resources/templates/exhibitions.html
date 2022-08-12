@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="fragments/admin-navigation :: navbar"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="fragments/admin-navigation :: sidebar"></div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div th:replace="fragments/alert :: alert"></div>
+            <form th:action="@{/admin/exhibitions}" th:object="${search}" method="post" class="bg-light">
+                <div class="container">
+                    <div class="row g-2 py-3">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input th:field="*{from}" name="from" type="date" class="form-control" id="start">
+                                <label th:text="#{search_from}" for="start">Search from:</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input th:field="*{to}" name="to" type="date" class="form-control" id="end">
+                                <label th:text="#{search_to}" for="end">Search to:</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select th:field="*{sort}" class="form-select" id="floatingSelect" aria-label="Sort">
+                                    <option th:each="sortOpt : ${T(com.sliwinski.exhibitions.controller.SortType).values()}" th:text="#{${sortOpt}}" th:value="${sortOpt}">Sort options</option>
+                                </select>
+                                <label th:text="#{sort}" for="floatingSelect">Sort by:</label>
+                            </div>
+                        </div>
+                        <div class="col-md d-flex">
+                            <button th:text="#{apply}" class="btn btn-outline-secondary ms-2" type="submit">Apply</button>
+                            <button th:text="#{reset}" onclick="location.href='?resetFilter=true'" class="btn btn-outline-secondary ms-2 text-center" type="button">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th th:text="#{theme}" scope="col">Theme</th>
+                    <th th:text="#{duration}" scope="col">Duration</th>
+                    <th th:text="#{working_hours}" scope="col">Working hours</th>
+                    <th th:text="#{ticket_price}" scope="col">Ticket price</th>
+                    <th th:text="#{location}" scope="col">Location</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="exhibition:${exhibitions}">
+                    <th>
+                        <div class="btn-group" role="group">
+                            <a th:text="#{edit}" th:href="'/admin/exhibitions/edit/' + ${exhibition.id}" role="button" class="btn btn-outline-primary">Edit</a>
+                            <a th:text="#{cancel}" th:href="'/admin/exhibitions/cancel/' + ${exhibition.id}" role="button" class="btn btn-outline-danger">Cancel</a>
+                        </div>
+                    </th>
+                    <td th:text="${exhibition.theme}">Theme</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li th:text="${exhibition.startDate}">Start date</li>
+                            <li th:text="${exhibition.endDate}">End date</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled">
+                            <li th:text="${exhibition.openingHour}">Opening hour</li>
+                            <li th:text="${exhibition.closingHour}">Closing hour</li>
+                        </ul>
+                    </td>
+                    <td th:text="${exhibition.ticketPrice}">Ticket Price</td>
+                    <td>
+                        <ul th:each="location:${exhibition.locations}" class="list-unstyled">
+                            <li th:text="${location.name}">Location name</li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </main>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

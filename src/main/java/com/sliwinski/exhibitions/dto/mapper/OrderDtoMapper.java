@@ -9,7 +9,7 @@ public class OrderDtoMapper {
     public OrderDto toDto(Order order) {
         return OrderDto.builder()
                 .id(order.getId())
-                .exhibitionTheme(order.getExhibition().getTheme())
+                .timestamp(order.getTimestamp())
                 .build();
     }
 }

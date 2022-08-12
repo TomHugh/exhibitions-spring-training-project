@@ -18,17 +18,17 @@
                 <div th:replace="fragments/alert :: alert"></div>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form th:action="@{/admin/new-exhibition/check-locations}" method="post">
+                        <form th:action="@{/admin/new-exhibition/check-locations}" th:object="${datesLocations}" method="post">
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input name="startDate" type="date" class="form-control" id="start" placeholder="Start" required>
+                                        <input th:field="*{startDate}" type="date" class="form-control" id="start" required>
                                         <label th:text="#{start_date}" for="start">Start date:</label>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-floating">
-                                        <input name="endDate" type="date" class="form-control" id="end" placeholder="End" required>
+                                        <input th:field="*{endDate}" type="date" class="form-control" id="end" required>
                                         <label th:text="#{end_date}" for="end">End date:</label>
                                     </div>
                                 </div>

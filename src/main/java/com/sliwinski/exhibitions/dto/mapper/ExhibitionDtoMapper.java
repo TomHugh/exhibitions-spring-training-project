@@ -10,6 +10,11 @@ public class ExhibitionDtoMapper {
         return ExhibitionDto.builder()
                 .id(exhibition.getId())
                 .theme(exhibition.getTheme())
+                .startDate(exhibition.getStartDate())
+                .endDate(exhibition.getEndDate())
+                .openingHour(exhibition.getOpeningHour())
+                .closingHour(exhibition.getClosingHour())
+                .ticketPrice(exhibition.getTicketPrice())
                 .build();
     }
 }

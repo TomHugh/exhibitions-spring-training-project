@@ -22,6 +22,6 @@ public class OrderController {
         orderService.createOrder(id);
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "ticket_purchased");
-        return "redirect:/";
+        return "redirect:/exhibitions";
     }
 }

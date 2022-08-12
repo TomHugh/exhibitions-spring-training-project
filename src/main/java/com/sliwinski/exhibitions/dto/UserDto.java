@@ -1,5 +1,6 @@
 package com.sliwinski.exhibitions.dto;
 
+import com.sliwinski.exhibitions.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,5 +12,6 @@ import java.util.Objects;
 public class UserDto {
     private long id;
     private String username;
+    private Role role;
 
 }
