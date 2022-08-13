@@ -19,35 +19,22 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    private int totalPages;
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-
-    private Long userQuantity;
     public Long getUserQuantity() {
-        if(userQuantity == null) userQuantity = userRepository.countByRole(Role.USER);
-        return userQuantity;
+        return userRepository.countByRole(Role.USER);
     }
 
-    private Long adminQuantity;
     public Long getAdminQuantity() {
-        if(adminQuantity == null) adminQuantity = userRepository.countByRole(Role.ADMIN);
-        return adminQuantity;
+        return userRepository.countByRole(Role.ADMIN);
     }
 
 
     public Page<User> getAllUsers(int page) {
-        Page<User> users = userRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE));
-        totalPages = users.getTotalPages();
-        return users;
+        return userRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return user;
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     public void createUser(String username, String password) {
@@ -56,7 +43,6 @@ public class UserService implements UserDetailsService {
         user.setPassword(password);
         user.setRole(Role.USER);
         userRepository.save(user);
-        userQuantity++;
     }
 
     public void createAdmin(String username, String password) {

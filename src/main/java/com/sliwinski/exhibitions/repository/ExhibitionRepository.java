@@ -27,7 +27,7 @@ public interface ExhibitionRepository extends JpaRepository<Exhibition, Integer>
     Page<Exhibition> findAllFetchLocationsPageable(Pageable page);
 
     @Query("select distinct e from Exhibition e join e.locations where e.startDate between :from and :to")
-//    @Query("select distinct e from Exhibition e join fetch e.locations where e.startDate between :from and :to")
+//    @Query("select distinct e from Exhibition e join fetch e.locations where e.startDate between :from and :to") //this Query gives exception
     Page<Exhibition> findByStartDateBetweenFetchLocations(LocalDate from, LocalDate to, Pageable page);
 
     @Query("select e from Exhibition e join fetch e.locations where e.id = ?1")

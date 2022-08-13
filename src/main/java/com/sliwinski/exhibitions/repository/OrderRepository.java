@@ -13,7 +13,7 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
     List<Order> findByUserId(long userId);
 
-    @Query("select o.id, o.timestamp from Order o")
+    @Query("select o.id, o.timestamp from Order o") //can remove - return whole object
     Page<Order> findAllPageable(Pageable page);
 
     @Query("select sum(e.ticketPrice) from Order o join o.exhibition as e")

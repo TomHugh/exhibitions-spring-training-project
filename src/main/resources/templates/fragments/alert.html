@@ -6,11 +6,11 @@
 <div  id="alert" th:fragment="alert" th:if="${message}" th:classappend="${class}" th:text="#{${message}}" class="alert mt-2" role="alert">Message</div>
 
 <!--Hide alert after 2s-->
-<!--<script>-->
-<!--    setTimeout(() => {-->
-<!--    const alert = document.getElementById('alert');-->
-<!--    alert.style.display = 'none';-->
-<!--    }, 2000);-->
-<!--</script>-->
+<script>
+    setTimeout(() => {
+    const alert = document.getElementById('alert');
+    alert.style.display = 'none';
+    }, 2000);
+</script>
 </body>
 </html>

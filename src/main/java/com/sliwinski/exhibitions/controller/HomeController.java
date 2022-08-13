@@ -4,15 +4,17 @@ import com.sliwinski.exhibitions.dto.ExhibitionDto;
 import com.sliwinski.exhibitions.dto.OrderDto;
 import com.sliwinski.exhibitions.dto.mapper.ExhibitionDtoMapper;
 import com.sliwinski.exhibitions.dto.mapper.OrderDtoMapper;
+import com.sliwinski.exhibitions.entity.Exhibition;
 import com.sliwinski.exhibitions.service.AuthService;
 import com.sliwinski.exhibitions.service.ExhibitionService;
 import com.sliwinski.exhibitions.service.OrderService;
+import com.sliwinski.exhibitions.service.utility.Search;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -20,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 
 @Controller
 @RequestMapping
+@SessionAttributes("search")
 public class HomeController {
 
     private final ExhibitionService exhibitionService;
@@ -36,7 +39,10 @@ public class HomeController {
         this.exhibitionDtoMapper = exhibitionDtoMapper;
     }
 
-    private Search currentSearch = new Search();
+    @ModelAttribute("search")
+    public Search newSearch() {
+        return new Search();
+    }
 
     @GetMapping("/")
     public String getHome() {
@@ -49,24 +55,19 @@ public class HomeController {
                                  Model model) {
         authService.addUsernameAttribute(model);
         int pageNumber = page != null && page > 0 ? page : 1;
-        List<ExhibitionDto> exhibitions;
-        int totalPages;
-        if(resetFilter) currentSearch = new Search();
-        if(search.getFrom() != null && search.getTo() != null) currentSearch = search;
-        if (currentSearch.getFrom() == null || currentSearch.getTo() == null) {
-            exhibitions = exhibitionService.getAllExhibitions(pageNumber - 1, currentSearch.getSort().direction()).stream()
-                    .map(exhibitionDtoMapper::toDto)
-                    .collect(toList());
+        Page<Exhibition> exhibitionPage;
+        if(resetFilter) search = newSearch();
+        if (search.getFrom() == null || search.getTo() == null) {
+            exhibitionPage = exhibitionService.getAllExhibitions(pageNumber - 1, search.getSort().direction());
         } else {
-            exhibitions = exhibitionService.searchAndSortExhibitions(
-                    currentSearch.getFrom(), currentSearch.getTo(), pageNumber-1, currentSearch.getSort().direction(), currentSearch.getSort().field())
-                    .stream()
-                    .map(exhibitionDtoMapper::toDto)
-                    .collect(toList());
+            exhibitionPage = exhibitionService.searchAndSortExhibitions(
+                    search.getFrom(), search.getTo(), pageNumber-1, search.getSort().direction(), search.getSort().field());
         }
-        totalPages = exhibitionService.getTotalPages();
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("search", currentSearch);
+        List<ExhibitionDto> exhibitions = exhibitionPage.stream()
+                .map(exhibitionDtoMapper::toDto)
+                .collect(toList());
+        model.addAttribute("totalPages", exhibitionPage.getTotalPages());
+        model.addAttribute("search", search);
         model.addAttribute("exhibitions", exhibitions);
         model.addAttribute("page", pageNumber);
         return "home";
@@ -100,36 +101,8 @@ public class HomeController {
                 .collect(toList());
 
         model.addAttribute("orders", orders);
-        return "orders";
+        return "user-orders";
     }
 
-    private class Search {
-        private LocalDate from;
-        private LocalDate to;
-        private SortType sort = SortType.DATE_ASC;
 
-        public LocalDate getFrom() {
-            return from;
-        }
-
-        public void setFrom(LocalDate from) {
-            this.from = from;
-        }
-
-        public LocalDate getTo() {
-            return to;
-        }
-
-        public void setTo(LocalDate to) {
-            this.to = to;
-        }
-
-        public SortType getSort() {
-            return sort;
-        }
-
-        public void setSort(SortType sort) {
-            this.sort = sort;
-        }
-    }
 }

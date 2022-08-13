@@ -27,21 +27,12 @@ public class OrderService {
         this.authService = authService;
     }
 
-    private int totalPages;
-    public int getTotalPages() {
-        return totalPages;
-    }
-
-
-    private Long quantity;
     public Long getQuantity() {
         return orderRepository.count();
     }
 
     public Page<Order> getAllOrders(int page) {
-        Page<Order> orders = orderRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.ASC, "id")));
-        totalPages = orders.getTotalPages();
-        return orders;
+        return orderRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.ASC, "id")));
     }
 
     public List<Order> getUserOrders() {
