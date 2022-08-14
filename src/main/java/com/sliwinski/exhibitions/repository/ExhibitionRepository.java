@@ -15,19 +15,17 @@ import java.util.Set;
 public interface ExhibitionRepository extends JpaRepository<Exhibition, Integer> {
     long count();
 
-    Exhibition findById(int exhibitionId);
+    Optional<Exhibition> findById(int exhibitionId);
 
-    @Query("select e from Exhibition e")
-    Page<Exhibition> findAllPageable(Pageable page);
+    Page<Exhibition> findAll(Pageable page);
 
+    @Query("select e from Exhibition e where (:from is null or e.endDate >= :from) and (:to is null or e.startDate <= :to)")
     Page<Exhibition> findByStartDateBetween(LocalDate from, LocalDate to, Pageable page);
 
     @Query("select distinct e from Exhibition e join e.locations")
-//    @Query("select distinct e from Exhibition e join fetch e.locations")
-    Page<Exhibition> findAllFetchLocationsPageable(Pageable page);
+    Page<Exhibition> findAllFetchLocations(Pageable page);
 
-    @Query("select distinct e from Exhibition e join e.locations where e.startDate between :from and :to")
-//    @Query("select distinct e from Exhibition e join fetch e.locations where e.startDate between :from and :to") //this Query gives exception
+    @Query("select distinct e from Exhibition e join e.locations where (:from is null or e.endDate >= :to) and (:to is null or e.startDate <= :to)")
     Page<Exhibition> findByStartDateBetweenFetchLocations(LocalDate from, LocalDate to, Pageable page);
 
     @Query("select e from Exhibition e join fetch e.locations where e.id = ?1")

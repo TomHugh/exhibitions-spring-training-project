@@ -3,7 +3,6 @@ package com.sliwinski.exhibitions.service;
 import com.sliwinski.exhibitions.entity.Exhibition;
 import com.sliwinski.exhibitions.entity.Location;
 import com.sliwinski.exhibitions.repository.ExhibitionRepository;
-import com.sliwinski.exhibitions.repository.LocationRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,7 +26,7 @@ public class ExhibitionService {
     }
 
     public Page<Exhibition> getAllExhibitions(int page, Sort.Direction direction) {
-        return exhibitionRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE, Sort.by(direction, "startDate")));
+        return exhibitionRepository.findAll(PageRequest.of(page, PAGE_SIZE, Sort.by(direction, "startDate")));
     }
 
     public Page<Exhibition> searchAndSortExhibitions(LocalDate from, LocalDate to, int page, Sort.Direction direction, String field) {
@@ -35,7 +34,7 @@ public class ExhibitionService {
     }
 
     public Page<Exhibition> getAllExhibitionsWithLocations(int page, Sort.Direction direction) {
-        return exhibitionRepository.findAllFetchLocationsPageable(PageRequest.of(page, ADMIN_PAGE_SIZE, Sort.by(direction, "startDate")));
+        return exhibitionRepository.findAllFetchLocations(PageRequest.of(page, ADMIN_PAGE_SIZE, Sort.by(direction, "startDate")));
     }
     public Page<Exhibition> searchAndSortExhibitionsWithLocations(LocalDate from, LocalDate to, int page, Sort.Direction direction, String field) {
         return exhibitionRepository.findByStartDateBetweenFetchLocations(from, to, PageRequest.of(page, ADMIN_PAGE_SIZE, Sort.by(direction, field)));

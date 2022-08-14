@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Service
 public class UserService implements UserDetailsService {
     private final int PAGE_SIZE = 10;
@@ -25,11 +27,6 @@ public class UserService implements UserDetailsService {
 
     public Long getAdminQuantity() {
         return userRepository.countByRole(Role.ADMIN);
-    }
-
-
-    public Page<User> getAllUsers(int page) {
-        return userRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE));
     }
 
     @Override

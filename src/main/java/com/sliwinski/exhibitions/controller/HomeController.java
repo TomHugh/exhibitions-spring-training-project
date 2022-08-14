@@ -55,20 +55,12 @@ public class HomeController {
                                  Model model) {
         authService.addUsernameAttribute(model);
         int pageNumber = page != null && page > 0 ? page : 1;
-        Page<Exhibition> exhibitionPage;
         if(resetFilter) search = newSearch();
-        if (search.getFrom() == null || search.getTo() == null) {
-            exhibitionPage = exhibitionService.getAllExhibitions(pageNumber - 1, search.getSort().direction());
-        } else {
-            exhibitionPage = exhibitionService.searchAndSortExhibitions(
+        Page<Exhibition> exhibitionsPage = exhibitionService.searchAndSortExhibitions(
                     search.getFrom(), search.getTo(), pageNumber-1, search.getSort().direction(), search.getSort().field());
-        }
-        List<ExhibitionDto> exhibitions = exhibitionPage.stream()
-                .map(exhibitionDtoMapper::toDto)
-                .collect(toList());
-        model.addAttribute("totalPages", exhibitionPage.getTotalPages());
+        model.addAttribute("totalPages", exhibitionsPage.getTotalPages());
         model.addAttribute("search", search);
-        model.addAttribute("exhibitions", exhibitions);
+        model.addAttribute("exhibitions", exhibitionsPage.getContent());
         model.addAttribute("page", pageNumber);
         return "home";
     }

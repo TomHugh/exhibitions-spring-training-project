@@ -32,7 +32,7 @@ public class OrderService {
     }
 
     public Page<Order> getAllOrders(int page) {
-        return orderRepository.findAllPageable(PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.ASC, "id")));
+        return orderRepository.findAll(PageRequest.of(page, PAGE_SIZE, Sort.by(Sort.Direction.ASC, "id")));
     }
 
     public List<Order> getUserOrders() {
@@ -44,7 +44,7 @@ public class OrderService {
         Order order = new Order();
         User user = authService.getUser();
         order.setUser(user);
-        order.setExhibition(exhibitionRepository.findById(exhibitionId));
+        order.setExhibition(exhibitionRepository.findById(exhibitionId).get());
         orderRepository.save(order);
     }
 

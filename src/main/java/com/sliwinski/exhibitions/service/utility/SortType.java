@@ -1,4 +1,4 @@
-package com.sliwinski.exhibitions.controller;
+package com.sliwinski.exhibitions.service.utility;
 
 import org.springframework.data.domain.Sort;
 

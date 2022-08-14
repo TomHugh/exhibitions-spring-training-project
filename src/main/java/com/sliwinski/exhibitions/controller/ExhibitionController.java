@@ -1,28 +1,53 @@
 package com.sliwinski.exhibitions.controller;
 
 import com.sliwinski.exhibitions.entity.Exhibition;
-import com.sliwinski.exhibitions.entity.Location;
 import com.sliwinski.exhibitions.service.ExhibitionService;
 import com.sliwinski.exhibitions.service.LocationService;
+import com.sliwinski.exhibitions.service.utility.DatesLocations;
+import com.sliwinski.exhibitions.service.utility.Search;
 import com.sliwinski.exhibitions.service.validator.Validate;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Controller
+@AllArgsConstructor
+@SessionAttributes("search")
 @RequestMapping("/admin")
 public class ExhibitionController {
     private final ExhibitionService exhibitionService;
     private final LocationService locationService;
 
-    public ExhibitionController(ExhibitionService exhibitionService, LocationService locationService) {
-        this.exhibitionService = exhibitionService;
-        this.locationService = locationService;
+    @ModelAttribute("search")
+    public Search newSearch() {
+        return new Search();
     }
+
+    @GetMapping("/exhibitions")
+    public String getExhibitions(@ModelAttribute Search search,
+                                 @RequestParam(required = false) Integer page,
+                                 @RequestParam(required = false) boolean resetFilter,
+                                 Model model) {
+        int pageNumber = page != null && page > 0 ? page : 1;
+        if(resetFilter) search = newSearch();
+        Page<Exhibition> exhibitionsPage = exhibitionService.searchAndSortExhibitionsWithLocations(
+                    search.getFrom(), search.getTo(), pageNumber-1, search.getSort().direction(), search.getSort().field());
+        model.addAttribute("totalPages", exhibitionsPage.getTotalPages());
+        model.addAttribute("search", search);
+        model.addAttribute("exhibitions", exhibitionsPage.getContent());
+        model.addAttribute("page", pageNumber);
+        return "exhibitions";
+    }
+
+    @PostMapping("/exhibitions")
+    public String SearchExhibitions(@ModelAttribute Search search, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("search", search);
+        return "redirect:/admin/exhibitions";
+    }
+
 
     @GetMapping("/new-exhibition/check-locations")
     public String getCheckLocations(Model model) {
@@ -62,42 +87,9 @@ public class ExhibitionController {
         return "redirect:/admin";
     }
 
-
-
-
     @GetMapping("/new-exhibition")
     public String getAddExhibitionView(Model model) {
         return "redirect:/admin/new-exhibition/check-locations";
-    }
-
-    private class DatesLocations {
-        private LocalDate startDate;
-        private LocalDate endDate;
-        private List<Location> locations;
-
-        public LocalDate getStartDate() {
-            return startDate;
-        }
-
-        public void setStartDate(LocalDate startDate) {
-            this.startDate = startDate;
-        }
-
-        public LocalDate getEndDate() {
-            return endDate;
-        }
-
-        public void setEndDate(LocalDate endDate) {
-            this.endDate = endDate;
-        }
-
-        public List<Location> getLocations() {
-            return locations;
-        }
-
-        public void setLocations(List<Location> locations) {
-            this.locations = locations;
-        }
     }
 
 }

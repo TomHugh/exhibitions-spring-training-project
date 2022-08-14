@@ -33,7 +33,7 @@
                         <div class="col-md">
                             <div class="form-floating">
                                 <select th:field="*{sort}" class="form-select" id="floatingSelect" aria-label="Sort">
-                                    <option th:each="sortOpt : ${T(com.sliwinski.exhibitions.controller.SortType).values()}" th:text="#{${sortOpt}}" th:value="${sortOpt}">Sort options</option>
+                                    <option th:each="sortOpt : ${T(com.sliwinski.exhibitions.service.utility.SortType).values()}" th:text="#{${sortOpt}}" th:value="${sortOpt}">Sort options</option>
                                 </select>
                                 <label th:text="#{sort}" for="floatingSelect">Sort by:</label>
                             </div>

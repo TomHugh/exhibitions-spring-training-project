@@ -1,12 +1,10 @@
 package com.sliwinski.exhibitions.service.utility;
 
-import com.sliwinski.exhibitions.controller.SortType;
-
 import java.time.LocalDate;
 
 public class Search {
-    private LocalDate from;
-    private LocalDate to;
+    private LocalDate from = null;
+    private LocalDate to = null;
     private SortType sort = SortType.DATE_ASC;
 
     public LocalDate getFrom() {
@@ -32,5 +30,4 @@ public class Search {
     public void setSort(SortType sort) {
         this.sort = sort;
     }
-
 }
