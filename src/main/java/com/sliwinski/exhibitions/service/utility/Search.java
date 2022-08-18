@@ -3,7 +3,7 @@ package com.sliwinski.exhibitions.service.utility;
 import java.time.LocalDate;
 
 public class Search {
-    private LocalDate from = null;
+    private LocalDate from = LocalDate.now();
     private LocalDate to = null;
     private SortType sort = SortType.DATE_ASC;
 

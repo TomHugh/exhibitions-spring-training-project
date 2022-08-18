@@ -34,7 +34,9 @@ public class Exhibition {
     @Column(name = "CLOSING_HOUR", nullable = false)
     private LocalTime closingHour;
     @Column(name = "TICKET_PRICE", nullable = false)
-    private float ticketPrice;
+    private double ticketPrice;
+    @Column(name = "IS_ACTIVE", nullable = false, columnDefinition = "boolean default true")
+    private boolean isActive = true;
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "EXHIBITIONS_LOCATIONS", joinColumns = @JoinColumn(name = "EXHIBITION_ID"), inverseJoinColumns = @JoinColumn(name = "LOCATION_ID"))
     private List<Location> locations;

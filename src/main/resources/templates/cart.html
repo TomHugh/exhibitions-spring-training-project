@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+    <div th:replace="fragments/navigation :: navbar"></div>
+    <div th:replace="fragments/alert :: alert"></div>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th th:text="#{tickets}" scope="col">Tickets</th>
+            <th th:text="#{theme}" scope="col">Theme</th>
+            <th th:text="#{duration}" scope="col">Duration</th>
+            <th th:text="#{working_hours}" scope="col">Working hours</th>
+            <th th:text="#{ticket_price}" scope="col">Ticket price</th>
+            <th th:text="#{total_price}" scope="col">Total price</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <form th:action="@{/cart/update}" th:object="${cart}" method="post">
+            <tr th:each="item, i : *{items}">
+                <th>
+                    <div class = "col-sm-2">
+                        <input  th:field="*{items[__${i.index}__].quantity}" type="number" class="form-control sm-2" id="quantity" min="0" step="1" required>
+                        <input th:field="*{items[__${i.index}__].exhibitionDto.id}" hidden>
+                    </div>
+
+                </th>
+                <td th:text="*{items[__${i.index}__].exhibitionDto.theme}">Theme</td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li th:text="*{items[__${i.index}__].exhibitionDto.startDate}"></li>
+                        <li th:text="*{items[__${i.index}__].exhibitionDto.endDate}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li th:text="*{items[__${i.index}__].exhibitionDto.openingHour}"></li>
+                        <li th:text="*{items[__${i.index}__].exhibitionDto.closingHour}"></li>
+                    </ul>
+                </td>
+                <td th:text="*{items[__${i.index}__].exhibitionDto.ticketPrice}">Ticket Price</td>
+                <td th:text="*{items[__${i.index}__].price}">Item price</td>
+                <td>
+                    <a role="button" class="btn btn-outline-danger" th:text="#{remove}" th:href="'/cart/remove?id=' + ${item.exhibitionDto.id}">Remove</a>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <button th:text="#{update_cart}" role="submit" class="btn btn-outline-success">Update cart</button>
+                </th>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td th:text="${totalPrice}">Total price</td>
+            </tr>
+        </form>
+        <tr>
+            <th>
+            </th>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                <a th:text="#{buy}" th:href="@{/buy}" role="button" class="btn btn-outline-success">Buy</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/alert :: script"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

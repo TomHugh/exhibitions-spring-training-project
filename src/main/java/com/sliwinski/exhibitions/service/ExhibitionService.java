@@ -22,26 +22,15 @@ public class ExhibitionService {
     }
 
     public Long getQuantity() {
-        return  exhibitionRepository.count();
-    }
-
-    public Page<Exhibition> getAllExhibitions(int page, Sort.Direction direction) {
-        return exhibitionRepository.findAll(PageRequest.of(page, PAGE_SIZE, Sort.by(direction, "startDate")));
+        return  exhibitionRepository.countByIsActiveIs(true);
     }
 
     public Page<Exhibition> searchAndSortExhibitions(LocalDate from, LocalDate to, int page, Sort.Direction direction, String field) {
-        return exhibitionRepository.findByStartDateBetween(from, to, PageRequest.of(page, PAGE_SIZE, Sort.by(direction, field)));
+        return exhibitionRepository.findByStartDateBetween(from, to, PageRequest.of(page, ADMIN_PAGE_SIZE, Sort.by(direction, field)));
     }
 
-    public Page<Exhibition> getAllExhibitionsWithLocations(int page, Sort.Direction direction) {
-        return exhibitionRepository.findAllFetchLocations(PageRequest.of(page, ADMIN_PAGE_SIZE, Sort.by(direction, "startDate")));
-    }
-    public Page<Exhibition> searchAndSortExhibitionsWithLocations(LocalDate from, LocalDate to, int page, Sort.Direction direction, String field) {
-        return exhibitionRepository.findByStartDateBetweenFetchLocations(from, to, PageRequest.of(page, ADMIN_PAGE_SIZE, Sort.by(direction, field)));
-    }
-
-    public List<Location> getExhibitionLocations(int exhibitionId) {
-        return exhibitionRepository.getExhibitionLocations(exhibitionId);
+    public Page<Exhibition> searchAndSortActiveExhibitions(LocalDate from, LocalDate to, int page, Sort.Direction direction, String field) {
+        return exhibitionRepository.findByStartDateBetweenAndIsActive(from, to, PageRequest.of(page, PAGE_SIZE, Sort.by(direction, field)));
     }
 
     public void createExhibition(Exhibition exhibition) {
@@ -51,4 +40,13 @@ public class ExhibitionService {
     public Exhibition getExhibition(int exhibitionId) throws Exception {
         return exhibitionRepository.findByIdFetchLocations(exhibitionId).orElseThrow(() -> new RuntimeException("Exhibition not found"));
     }
+
+    public Exhibition findExhibition(int exhibitionId) throws Exception{
+        return exhibitionRepository.findById(exhibitionId).orElseThrow(() -> new RuntimeException("Exhibition not found"));
+    }
+
+    public void cancelExhibition(int id) {
+        exhibitionRepository.cancelById(id);
+    }
+
 }

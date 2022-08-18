@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>New location</title>
+    <title>Check locations</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="/css/admin.css" rel="stylesheet">
@@ -18,18 +18,20 @@
                 <div th:replace="fragments/alert :: alert"></div>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form th:action="@{/admin/locations/new}" method="post">
+                        <form th:action="@{/admin/exhibitions/cancel/}  + ${id}" method="post">
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <div class="form-floating">
-                                        <input name="locationName" type="text" class="form-control" id="name" required>
-                                        <label th:text="#{location_name}" for="name">Location name:</label>
-                                    </div>
+                                    <h5 th:text="#{really_cancel}">Really cancel?</h5>
+                                    <p th:text="#{tickets_sold}">Tickets sold:</p>
+                                    <h6 th:text="${orders}">Orders</h6>
                                 </div>
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <button th:text="#{add_location}" class="btn btn-outline-info col-12" type="submit">Add location</button>
+                                    <a th:text="#{back}" href="/admin/exhibitions" class="btn btn-outline-warning col-12" role="button">Back</a>
+                                </div>
+                                <div class="col-md">
+                                    <button th:text="#{cancel_exhibition}" class="btn btn-outline-info col-12" type="submit">Cancel exhibitionDto</button>
                                 </div>
                             </div>
                         </form>

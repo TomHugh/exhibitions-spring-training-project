@@ -14,6 +14,7 @@
             <div class="col-6 pt-3">
                 <div class="card">
                     <h5 th:text="${exhibition.theme}" class="card-header">Theme</h5>
+                    <h5 th:if="${!exhibition.isActive}" th:text="#{Canceled}" class="card-header bg-danger">Canceled</h5>
                     <div class="card-body">
                         <h5 th:text="${exhibition.startDate} + ' - ' + ${exhibition.endDate}" class="card-title">Duration</h5>
                         <p th:text="#{working_hours}" class="card-text">Working hours:</p>
@@ -24,15 +25,9 @@
                         </ul>
                         <p th:text="#{ticket_price}" class="card-text">Ticket price:</p>
                         <p th:text="${exhibition.ticketPrice}" class="card-text">Ticket price</p>
-                        <form th:action="@{/cart/add(id=${id},quantity=${quantity})}" method="get" class="row g-3">
-                            <div class = "col-auto">
-                                <button th:text="#{add_to_cart}" type="submit" class="btn btn-outline-success">Add to cart</button>
-                            </div>
-                            <div class = "col-sm-2">
-                                <input  th:name="quantity" type="number" class="form-control sm-2" value="1" id="quantity" min="1" step="1" required>
-                                <input th:name="id" th:value="${exhibition.id}" hidden>
-                            </div>
-                        </form>
+                        <p th:text="#{total_orders}" class="card-text">Total orders:</p>
+                        <p th:text="${orders}" class="card-text">Orders</p>
+                        <a th:text="#{check_orders}" th:href="'/admin/orders?exhibitionId=' + ${exhibition.id}" role="button" class="btn btn-outline-info">Check orders</a>
                     </div>
                 </div>
             </div>

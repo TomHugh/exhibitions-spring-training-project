@@ -15,12 +15,14 @@
                 <tr>
                     <th th:text="#{order_id}" scope="col">Order ID</th>
                     <th th:text="#{timestamp}" scope="col">Timestamp</th>
+                    <th th:text="#{exhibition_theme}" scope="col">Exhibition theme</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="order:${orders}">
                     <td th:text="${order.id}">Order ID</td>
                     <td th:text="${order.timestamp}">Timestamp</td>
+                    <td th:text="${order.exhibitionTheme}">Exhibition theme</td>
                 </tr>
                 </tbody>
             </table>

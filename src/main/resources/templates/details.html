@@ -17,7 +17,7 @@
             <div class="container align-middle">
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form th:action="@{/admin/new-exhibition/details}" th:object="${exhibition}" method="post">
+                        <form th:action="@{/admin/exhibitions/new/details}" th:object="${exhibition}" method="post">
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
@@ -73,7 +73,7 @@
                             </div>
                             <div class="row g-2 py-3">
                                 <div class="col-md">
-                                    <a th:text="#{back}" href="/admin/new-exhibition/check-locations" class="btn btn-outline-warning col-12" role="button">Back</a>
+                                    <a th:text="#{back}" href="/admin/exhibitions/new/check-locations" class="btn btn-outline-warning col-12" role="button">Back</a>
                                 </div>
                                 <div class="col-md">
                                     <button th:text="#{add}" class="btn btn-outline-success col-12" type="submit">Add</button>

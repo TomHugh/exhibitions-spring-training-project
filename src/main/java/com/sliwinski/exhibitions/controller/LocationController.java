@@ -1,8 +1,5 @@
 package com.sliwinski.exhibitions.controller;
 
-import com.sliwinski.exhibitions.dto.LocationDto;
-import com.sliwinski.exhibitions.dto.OrderDto;
-import com.sliwinski.exhibitions.dto.mapper.LocationDtoMapper;
 import com.sliwinski.exhibitions.entity.Location;
 import com.sliwinski.exhibitions.service.LocationService;
 import lombok.AllArgsConstructor;
@@ -10,10 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Controller
 @AllArgsConstructor
@@ -30,12 +23,12 @@ public class LocationController {
         return "locations";
     }
 
-    @GetMapping("/new-location")
+    @GetMapping("/locations/new")
     public String getAddLocation (Model model) {
         return "new-location";
     }
 
-    @PostMapping("/new-location")
+    @PostMapping("/locations/new")
     public String postAddLocation (@RequestParam String locationName, Model model) {
         Location location = new Location();
         location.setName(locationName);

@@ -21,15 +21,15 @@
                         <th th:text="#{order_id}" scope="col">Order ID</th>
                         <th th:text="#{timestamp}" scope="col">Timestamp</th>
                         <th th:text="#{user_id}" scope="col">User ID</th>
-                        <th th:text="#{exhibition_id}" scope="col">Exhibition ID</th>
+                        <th th:text="#{exhibition_theme}" scope="col">Exhibition Theme</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="order:${orders}">
                         <td th:text="${order.id}">Order ID</td>
                         <td th:text="${order.timestamp}">Timestamp</td>
-                        <td th:text="${order.user.id}">User ID</td>
-                        <td th:text="${order.exhibition.id}">Exhibition ID</td>
+                        <td th:text="${order.userId}">User ID</td>
+                        <td th:text="${order.exhibitionTheme}">Exhibition Theme</td>
                     </tr>
                     </tbody>
                 </table>

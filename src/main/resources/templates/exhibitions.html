@@ -53,36 +53,31 @@
                     <th th:text="#{duration}" scope="col">Duration</th>
                     <th th:text="#{working_hours}" scope="col">Working hours</th>
                     <th th:text="#{ticket_price}" scope="col">Ticket price</th>
-                    <th th:text="#{location}" scope="col">Location</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="exhibition:${exhibitions}">
+                <tr th:each="exhibitionDto:${exhibitions}" th:attr="class=${!exhibitionDto.isActive ? 'table-danger' : ''}">
                     <th>
                         <div class="btn-group" role="group">
-                            <a th:text="#{edit}" th:href="'/admin/exhibitions/edit/' + ${exhibition.id}" role="button" class="btn btn-outline-primary">Edit</a>
-                            <a th:text="#{cancel}" th:href="'/admin/exhibitions/cancel/' + ${exhibition.id}" role="button" class="btn btn-outline-danger">Cancel</a>
+                            <a th:text="#{details}" th:href="'/admin/exhibitions/' + ${exhibitionDto.id}" role="button" class="btn btn-outline-primary">Details</a>
+                            <a th:text="#{edit}" th:href="'/admin/exhibitions/edit/' + ${exhibitionDto.id}" role="button" class="btn btn-outline-success">Edit</a>
+                            <a th:if="${exhibitionDto.isActive}" th:text="#{cancel}" th:href="'/admin/exhibitions/cancel/' + ${exhibitionDto.id}" role="button" class="btn btn-outline-danger">Cancel</a>
                         </div>
                     </th>
-                    <td th:text="${exhibition.theme}">Theme</td>
+                    <td th:text="${exhibitionDto.theme}">Theme</td>
                     <td>
                         <ul class="list-unstyled">
-                            <li th:text="${exhibition.startDate}">Start date</li>
-                            <li th:text="${exhibition.endDate}">End date</li>
+                            <li th:text="${exhibitionDto.startDate}">Start date</li>
+                            <li th:text="${exhibitionDto.endDate}">End date</li>
                         </ul>
                     </td>
                     <td>
                         <ul class="list-unstyled">
-                            <li th:text="${exhibition.openingHour}">Opening hour</li>
-                            <li th:text="${exhibition.closingHour}">Closing hour</li>
+                            <li th:text="${exhibitionDto.openingHour}">Opening hour</li>
+                            <li th:text="${exhibitionDto.closingHour}">Closing hour</li>
                         </ul>
                     </td>
-                    <td th:text="${exhibition.ticketPrice}">Ticket Price</td>
-                    <td>
-                        <ul th:each="location:${exhibition.locations}" class="list-unstyled">
-                            <li th:text="${location.name}">Location name</li>
-                        </ul>
-                    </td>
+                    <td th:text="${exhibitionDto.ticketPrice}">Ticket Price</td>
                 </tr>
                 </tbody>
             </table>

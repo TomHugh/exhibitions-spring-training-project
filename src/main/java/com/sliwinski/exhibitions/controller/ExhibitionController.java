@@ -3,6 +3,7 @@ package com.sliwinski.exhibitions.controller;
 import com.sliwinski.exhibitions.entity.Exhibition;
 import com.sliwinski.exhibitions.service.ExhibitionService;
 import com.sliwinski.exhibitions.service.LocationService;
+import com.sliwinski.exhibitions.service.OrderService;
 import com.sliwinski.exhibitions.service.utility.DatesLocations;
 import com.sliwinski.exhibitions.service.utility.Search;
 import com.sliwinski.exhibitions.service.validator.Validate;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ExhibitionController {
     private final ExhibitionService exhibitionService;
     private final LocationService locationService;
+    private final OrderService orderService;
 
     @ModelAttribute("search")
     public Search newSearch() {
@@ -33,7 +35,7 @@ public class ExhibitionController {
                                  Model model) {
         int pageNumber = page != null && page > 0 ? page : 1;
         if(resetFilter) search = newSearch();
-        Page<Exhibition> exhibitionsPage = exhibitionService.searchAndSortExhibitionsWithLocations(
+        Page<Exhibition> exhibitionsPage = exhibitionService.searchAndSortExhibitions(
                     search.getFrom(), search.getTo(), pageNumber-1, search.getSort().direction(), search.getSort().field());
         model.addAttribute("totalPages", exhibitionsPage.getTotalPages());
         model.addAttribute("search", search);
@@ -48,14 +50,28 @@ public class ExhibitionController {
         return "redirect:/admin/exhibitions";
     }
 
+    @GetMapping("/exhibitions/{id}")
+    public String getExhibition(@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
+        try {
+            model.addAttribute("exhibition", exhibitionService.getExhibition(id));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("class", "alert-danger");
+            redirectAttributes.addFlashAttribute("message", "exhibition_not_found");
+            return "redirect:/admin/exhibitions";
+        }
 
-    @GetMapping("/new-exhibition/check-locations")
+        model.addAttribute("orders", orderService.countByExhibitionId(id));
+        return "admin-exhibition";
+    }
+
+
+    @GetMapping("/exhibitions/new/check-locations")
     public String getCheckLocations(Model model) {
         model.addAttribute("datesLocations", new DatesLocations());
         return "check-locations";
     }
 
-    @PostMapping("/new-exhibition/check-locations")
+    @PostMapping("/exhibitions/new/check-locations")
     public String postCheckLocations(@ModelAttribute DatesLocations datesLocations, Model model, RedirectAttributes redirectAttributes) {
         try {
             Validate.startEndDates(datesLocations.getStartDate(), datesLocations.getEndDate());
@@ -66,10 +82,10 @@ public class ExhibitionController {
             return "check-locations";
         }
         redirectAttributes.addFlashAttribute("datesLocations", datesLocations);
-        return "redirect:/admin/new-exhibition/details";
+        return "redirect:/admin/exhibitions/new/details";
     }
 
-    @GetMapping("/new-exhibition/details")
+    @GetMapping("/exhibitions/new/details")
     public String getDetails(@ModelAttribute DatesLocations datesLocations, Model model) {
         Exhibition exhibition = new Exhibition();
         exhibition.setStartDate(datesLocations.getStartDate());
@@ -79,7 +95,7 @@ public class ExhibitionController {
         return "details";
     }
 
-    @PostMapping("/new-exhibition/details")
+    @PostMapping("/exhibitions/new/details")
     public String postDetails(@ModelAttribute Exhibition exhibition, RedirectAttributes redirectAttributes) {
         exhibitionService.createExhibition(exhibition);
         redirectAttributes.addFlashAttribute("class", "alert-success");
@@ -87,9 +103,23 @@ public class ExhibitionController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/new-exhibition")
-    public String getAddExhibitionView(Model model) {
-        return "redirect:/admin/new-exhibition/check-locations";
+    @GetMapping("/exhibitions/new")
+    public String addExhibition(Model model) {
+        return "redirect:/admin/exhibitions/new/check-locations";
     }
 
+    @GetMapping("/exhibitions/cancel/{id}")
+    public String getCancelExhibition (@PathVariable int id, Model model) {
+        long orders = orderService.countByExhibitionId(id);
+        model.addAttribute("orders", orders);
+        return "cancel-exhibition";
+    }
+
+    @PostMapping("/exhibitions/cancel/{id}")
+    public String postCancelExhibition (@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
+        exhibitionService.cancelExhibition(id);
+        redirectAttributes.addFlashAttribute("class", "alert-success");
+        redirectAttributes.addFlashAttribute("message", "exhibition_canceled");
+        return "redirect:/admin/exhibitions";
+    }
 }

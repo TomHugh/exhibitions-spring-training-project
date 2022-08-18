@@ -28,33 +28,33 @@
                 </thead>
                 <tbody>
                 <tbody>
-                <tr th:each="exhibition:${exhibitions}">
+                <tr th:each="exhibitionDto:${exhibitions}">
                     <th>
                         <div class="btn-group" role="group" aria-label="EditCancel">
                             <button type="button" class="btn btn-outline-primary">Edit</button>
                             <button type="button" class="btn btn-outline-danger">Cancel</button>
                         </div>
                     </th>
-                    <td th:text="${exhibition.theme}">Theme</td>
+                    <td th:text="${exhibitionDto.theme}">Theme</td>
                     <td>
-                        <ul class="list-unstyled" th:each="location:${exhibition.locations}">
+                        <ul class="list-unstyled" th:each="location:${exhibitionDto.locations}">
                             <li th:text="${location.name}">Location</li>
                         </ul>
                     </td>
                     <td>
                         <ul class="list-unstyled">
-                            <li th:text="${exhibition.startDate}"></li>
-                            <li th:text="${exhibition.endDate}"></li>
+                            <li th:text="${exhibitionDto.startDate}"></li>
+                            <li th:text="${exhibitionDto.endDate}"></li>
                         </ul>
                     </td>
                     <td>
                         <ul class="list-unstyled">
-                            <li th:text="${exhibition.openingHour}"></li>
-                            <li th:text="${exhibition.closingHour}"></li>
+                            <li th:text="${exhibitionDto.openingHour}"></li>
+                            <li th:text="${exhibitionDto.closingHour}"></li>
                         </ul>
                     </td>
 
-                    <td th:text="${exhibition.ticketPrice}">Ticket Price</td>
+                    <td th:text="${exhibitionDto.ticketPrice}">Ticket Price</td>
                     <td>
                     </td>
                 </tr>
@@ -86,7 +86,7 @@
                 <tr th:each="order:${orders}">
                     <th scope="row" th:text="${order.id}">Id</th>
                     <td th:text="${order.user.username}">Username</td>
-                    <td th:text="${order.exhibition}">Exhibition</td>
+                    <td th:text="${order.exhibitionDto}">Exhibition</td>
                 </tr>
                 </tbody>
             </table>

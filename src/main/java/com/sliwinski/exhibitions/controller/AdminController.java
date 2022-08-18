@@ -1,16 +1,10 @@
 package com.sliwinski.exhibitions.controller;
 
-import com.sliwinski.exhibitions.dto.ExhibitionDto;
-import com.sliwinski.exhibitions.dto.OrderDto;
-import com.sliwinski.exhibitions.dto.UserDto;
-import com.sliwinski.exhibitions.dto.mapper.OrderDtoMapper;
-import com.sliwinski.exhibitions.dto.mapper.UserDtoMapper;
 import com.sliwinski.exhibitions.entity.*;
 import com.sliwinski.exhibitions.service.ExhibitionService;
 import com.sliwinski.exhibitions.service.OrderService;
 import com.sliwinski.exhibitions.service.UserIdNameRoleService;
 import com.sliwinski.exhibitions.service.UserService;
-import com.sliwinski.exhibitions.service.utility.Search;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -45,14 +39,4 @@ public class AdminController {
         model.addAttribute("users", usersPage.getContent());
         return "users";
     }
-
-    @GetMapping("/orders")
-    public String getOrders(@RequestParam(required = false) Integer page, Model model) {
-        int pageNumber = page != null && page > 0 ? page : 1;
-        Page<Order> ordersPage = orderService.getAllOrders(pageNumber-1);
-        model.addAttribute("page", ordersPage.getTotalPages());
-        model.addAttribute("orders", ordersPage.getContent());
-        return "orders";
-    }
-
 }

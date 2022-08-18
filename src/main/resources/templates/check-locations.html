@@ -18,7 +18,7 @@
                 <div th:replace="fragments/alert :: alert"></div>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form th:action="@{/admin/new-exhibition/check-locations}" th:object="${datesLocations}" method="post">
+                        <form th:action="@{/admin/exhibitions/new/check-locations}" th:object="${datesLocations}" method="post">
                             <div class="row g-2 py-3">
                                 <div class="col-md">
                                     <div class="form-floating">
