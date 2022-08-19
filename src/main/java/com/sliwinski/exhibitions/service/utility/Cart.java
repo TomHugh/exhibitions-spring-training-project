@@ -34,18 +34,6 @@ public class Cart {
         return null;
     }
 
-    public void updateItem(int id, int quantity) {
-        Item item = this.findItemById(id);
-        if (item != null) {
-            if (quantity <= 0) {
-                this.items.remove(item);
-            } else {
-                item.setQuantity(quantity);
-                item.setPrice(quantity * item.getExhibitionDto().getTicketPrice());
-            }
-        }
-    }
-
     public void removeItem(int id) {
         Item item = this.findItemById(id);
         if (item != null) {
@@ -70,9 +58,13 @@ public class Cart {
     }
 
     public void updateQuantity() {
-            List<Item> listToIterate = new ArrayList<>(this.items);
-            for (Item item : listToIterate) {
-                this.updateItem(item.getExhibitionDto().getId(), item.getQuantity());
+            for (int i=0; i<this.items.size(); i++) {
+                Item item = this.items.get(i);
+                if (item.getQuantity() <= 0) {
+                    this.items.remove(item);
+                } else {
+                    item.setPrice(item.getQuantity() * item.getExhibitionDto().getTicketPrice());
+                }
             }
     }
 

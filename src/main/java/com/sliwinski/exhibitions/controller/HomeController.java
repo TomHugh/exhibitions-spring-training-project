@@ -106,6 +106,7 @@ public class HomeController {
     @GetMapping("/cart")
     public String getCart(@ModelAttribute Cart cart, Model model) {
         authService.addUsernameAttribute(model);
+        model.addAttribute("totalQuantity", cart.getQuantityTotal());
         model.addAttribute("totalPrice", cart.getPriceTotal());
         return "cart";
     }

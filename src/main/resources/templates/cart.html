@@ -52,8 +52,7 @@
                 </td>
             </tr>
             <tr>
-                <th>
-                    <button th:text="#{update_cart}" role="submit" class="btn btn-outline-success">Update cart</button>
+                <th th:text="${totalQuantity}">Total quantity
                 </th>
                 <td>
                 </td>
@@ -65,9 +64,10 @@
                 </td>
                 <td th:text="${totalPrice}">Total price</td>
             </tr>
-        </form>
+
         <tr>
             <th>
+                <button th:text="#{update_cart}" role="submit" class="btn btn-outline-success">Update cart</button>
             </th>
             <td>
             </td>
@@ -81,6 +81,7 @@
                 <a th:text="#{buy}" th:href="@{/buy}" role="button" class="btn btn-outline-success">Buy</a>
             </td>
         </tr>
+        </form>
         </tbody>
     </table>
 </div>

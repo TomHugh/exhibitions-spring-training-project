@@ -67,6 +67,7 @@ public class OrderController {
     public String createOrder(@ModelAttribute Cart cart,  Model model, RedirectAttributes redirectAttributes) {
         orderService.saveCart(cart);
         cart = newCart();
+        model.addAttribute("cart", cart);
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "tickets_purchased");
         return "redirect:/exhibitions";
