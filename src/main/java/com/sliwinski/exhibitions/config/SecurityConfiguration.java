@@ -56,6 +56,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             response.sendRedirect("/");
                     }
                 })
+                .failureHandler(new AuthenticationFailureHandler() {
+                    @Override
+                    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                                        AuthenticationException exception) throws IOException, ServletException {
+                        throw exception;
+                    }
+                })
                 .and()
                 .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
