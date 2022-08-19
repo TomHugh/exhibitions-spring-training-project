@@ -1,14 +1,17 @@
 package com.sliwinski.exhibitions.service.validator;
 
+import com.sliwinski.exhibitions.exception.ShortPasswordException;
+import com.sliwinski.exhibitions.exception.WrongRetypedPasswordException;
+
 import java.time.LocalDate;
 
 public class Validate {
     private Validate() {
     }
 
-    public static boolean password(String password, String retypedPassword) throws Exception {
-        if(password.length() < 8) throw new RuntimeException("short_password");
-        if(!password.equals(retypedPassword)) throw new RuntimeException("wrong_retyped_password");
+    public static boolean password(String password, String retypedPassword) {
+        if(password.length() < 8) throw new ShortPasswordException();
+        if(!password.equals(retypedPassword)) throw new WrongRetypedPasswordException();
     return true;
     }
 
