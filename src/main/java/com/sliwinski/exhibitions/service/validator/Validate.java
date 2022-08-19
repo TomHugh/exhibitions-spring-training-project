@@ -1,5 +1,7 @@
 package com.sliwinski.exhibitions.service.validator;
 
+import com.sliwinski.exhibitions.exception.EndBeforeNowException;
+import com.sliwinski.exhibitions.exception.EndBeforeStartException;
 import com.sliwinski.exhibitions.exception.ShortPasswordException;
 import com.sliwinski.exhibitions.exception.WrongRetypedPasswordException;
 
@@ -15,8 +17,9 @@ public class Validate {
     return true;
     }
 
-    public static boolean startEndDates (LocalDate start, LocalDate end) throws Exception{
-        if(end.compareTo(start) < 0) throw new RuntimeException("start_end_date");
+    public static boolean startEndDates (LocalDate start, LocalDate end) {
+        if(end.compareTo(start) < 0) throw new EndBeforeStartException();
+        if(end.compareTo(LocalDate.now()) < 0) throw new EndBeforeNowException();
         return true;
     }
 }

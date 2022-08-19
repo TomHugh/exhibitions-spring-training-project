@@ -23,7 +23,7 @@ public class LocationService {
         this.exhibitionRepository = exhibitionRepository;
     }
 
-    public List<Location> checkAvailability(LocalDate startDate, LocalDate endDate) throws Exception {
+    public List<Location> checkAvailability(LocalDate startDate, LocalDate endDate) {
         List<Location> freeLocations = locationRepository.findAll();
         Set<Location> occupiedLocations = exhibitionRepository.findOccupiedLocations(startDate, endDate);
         freeLocations.removeAll(occupiedLocations);

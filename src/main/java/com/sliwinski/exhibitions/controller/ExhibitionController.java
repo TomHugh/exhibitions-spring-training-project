@@ -73,14 +73,8 @@ public class ExhibitionController {
 
     @PostMapping("/exhibitions/new/check-locations")
     public String postCheckLocations(@ModelAttribute DatesLocations datesLocations, Model model, RedirectAttributes redirectAttributes) {
-        try {
-            Validate.startEndDates(datesLocations.getStartDate(), datesLocations.getEndDate());
-            datesLocations.setLocations(locationService.checkAvailability(datesLocations.getStartDate(), datesLocations.getEndDate()));
-        } catch (Exception e) {
-            model.addAttribute("class", "alert-danger");
-            model.addAttribute("message", e.getMessage());
-            return "check-locations";
-        }
+        Validate.startEndDates(datesLocations.getStartDate(), datesLocations.getEndDate());
+        datesLocations.setLocations(locationService.checkAvailability(datesLocations.getStartDate(), datesLocations.getEndDate()));
         redirectAttributes.addFlashAttribute("datesLocations", datesLocations);
         return "redirect:/admin/exhibitions/new/details";
     }
