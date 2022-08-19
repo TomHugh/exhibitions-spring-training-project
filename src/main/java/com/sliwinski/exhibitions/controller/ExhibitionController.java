@@ -22,6 +22,7 @@ public class ExhibitionController {
     private final ExhibitionService exhibitionService;
     private final LocationService locationService;
     private final OrderService orderService;
+    private final Validate validate;
 
     @ModelAttribute("search")
     public Search newSearch() {
@@ -73,7 +74,7 @@ public class ExhibitionController {
 
     @PostMapping("/exhibitions/new/check-locations")
     public String postCheckLocations(@ModelAttribute DatesLocations datesLocations, Model model, RedirectAttributes redirectAttributes) {
-        Validate.startEndDates(datesLocations.getStartDate(), datesLocations.getEndDate());
+        validate.startEndDates(datesLocations.getStartDate(), datesLocations.getEndDate());
         datesLocations.setLocations(locationService.checkAvailability(datesLocations.getStartDate(), datesLocations.getEndDate()));
         redirectAttributes.addFlashAttribute("datesLocations", datesLocations);
         return "redirect:/admin/exhibitions/new/details";
@@ -91,6 +92,7 @@ public class ExhibitionController {
 
     @PostMapping("/exhibitions/new/details")
     public String postDetails(@ModelAttribute Exhibition exhibition, RedirectAttributes redirectAttributes) {
+        validate.exhibition(exhibition);
         exhibitionService.createExhibition(exhibition);
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "exhibition_created");

@@ -1,15 +1,24 @@
 package com.sliwinski.exhibitions.config;
 
 import com.sliwinski.exhibitions.exception.CustomException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public String badCredentialsHandler(Model model) {
+        model.addAttribute("class", "alert-danger");
+        model.addAttribute("message", "bad_credentials");
+        return "signin";
+    }
 
     @ExceptionHandler(NullPointerException.class)
     public String nullPointerHandler(Model model) {

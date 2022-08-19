@@ -2,6 +2,7 @@ package com.sliwinski.exhibitions.service;
 
 import com.sliwinski.exhibitions.entity.Role;
 import com.sliwinski.exhibitions.entity.User;
+import com.sliwinski.exhibitions.exception.UserExistsException;
 import com.sliwinski.exhibitions.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -35,19 +36,23 @@ public class UserService implements UserDetailsService {
     }
 
     public void createUser(String username, String password) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRole(Role.USER);
-        userRepository.save(user);
+        if(userRepository.countByUsername(username) == 0) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setRole(Role.USER);
+            userRepository.save(user);
+        } else throw new UserExistsException();
     }
 
     public void createAdmin(String username, String password) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRole(Role.ADMIN);
-        userRepository.save(user);
+        if(userRepository.countByUsername(username) == 0) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setRole(Role.ADMIN);
+            userRepository.save(user);
+        } else throw new UserExistsException();
     }
 }
 

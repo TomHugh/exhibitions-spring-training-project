@@ -2,6 +2,7 @@ package com.sliwinski.exhibitions.controller;
 
 import com.sliwinski.exhibitions.service.UserService;
 import com.sliwinski.exhibitions.service.validator.Validate;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,15 +17,13 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
+@AllArgsConstructor
 @RequestMapping
 public class AuthController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final Validate validate;
 
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
 
     @GetMapping("/signin")
@@ -39,7 +38,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerUser(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
-        Validate.password(body.get("password"), body.get("retypedPassword"));
+        validate.password(body.get("password"), body.get("retypedPassword"));
         userService.createUser(body.get("username"), passwordEncoder.encode(body.get("password")));
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "user_registered");
@@ -53,7 +52,7 @@ public class AuthController {
 
     @PostMapping("admin/new-admin")
     public String registerAdmin(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
-        Validate.password(body.get("password"), body.get("retypedPassword"));
+        validate.password(body.get("password"), body.get("retypedPassword"));
         userService.createAdmin(body.get("username"), passwordEncoder.encode(body.get("password")));
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "admin_created");
