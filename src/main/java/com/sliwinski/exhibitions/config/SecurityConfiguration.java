@@ -1,6 +1,8 @@
 package com.sliwinski.exhibitions.config;
 
+import com.sliwinski.exhibitions.service.CustomUserDetailsService;
 import com.sliwinski.exhibitions.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,19 +23,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 
 @Configuration
+@AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private final UserService userService;
-    public SecurityConfiguration(UserService userService) {
-        this.userService = userService;
-    }
-
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -75,7 +72,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService);
+        auth.userDetailsService(customUserDetailsService);
     }
 
     @Bean

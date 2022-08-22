@@ -10,9 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order,Long> {
-    long count();
-
-    Page<Order> findAll(Pageable page);
 
     @Query("select sum(e.ticketPrice) from Order o join o.exhibition as e")
     double getProfit();

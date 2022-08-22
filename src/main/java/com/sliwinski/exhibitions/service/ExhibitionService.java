@@ -1,15 +1,15 @@
 package com.sliwinski.exhibitions.service;
 
 import com.sliwinski.exhibitions.entity.Exhibition;
-import com.sliwinski.exhibitions.entity.Location;
+import com.sliwinski.exhibitions.exception.NoSuchExhibitionException;
 import com.sliwinski.exhibitions.repository.ExhibitionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class ExhibitionService {
@@ -37,14 +37,15 @@ public class ExhibitionService {
         exhibitionRepository.save(exhibition);
     }
 
-    public Exhibition getExhibition(int exhibitionId) throws Exception {
-        return exhibitionRepository.findByIdFetchLocations(exhibitionId).orElseThrow(() -> new RuntimeException("Exhibition not found"));
+    public Exhibition getExhibition(int exhibitionId) {
+        return exhibitionRepository.findByIdFetchLocations(exhibitionId).orElseThrow(() -> new NoSuchExhibitionException());
     }
 
-    public Exhibition findExhibition(int exhibitionId) throws Exception{
-        return exhibitionRepository.findById(exhibitionId).orElseThrow(() -> new RuntimeException("Exhibition not found"));
+    public Exhibition findExhibition(int exhibitionId) {
+        return exhibitionRepository.findById(exhibitionId).orElseThrow(() -> new NoSuchExhibitionException());
     }
 
+    @Transactional
     public void cancelExhibition(int id) {
         exhibitionRepository.cancelById(id);
     }

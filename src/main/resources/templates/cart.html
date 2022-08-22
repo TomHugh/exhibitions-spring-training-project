@@ -26,7 +26,7 @@
         <form th:action="@{/cart/update}" th:object="${cart}" method="post">
             <tr th:each="item, i : *{items}">
                 <th>
-                    <div class = "col-sm-2">
+                    <div class = "col-sm-3">
                         <input  th:field="*{items[__${i.index}__].quantity}" type="number" class="form-control sm-2" id="quantity" min="0" step="1" required>
                         <input th:field="*{items[__${i.index}__].exhibitionDto.id}" hidden>
                     </div>

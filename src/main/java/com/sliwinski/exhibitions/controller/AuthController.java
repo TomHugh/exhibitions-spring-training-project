@@ -21,7 +21,6 @@ import java.util.Map;
 @RequestMapping
 public class AuthController {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
     private final Validate validate;
 
 
@@ -39,7 +38,7 @@ public class AuthController {
     @PostMapping("/register")
     public String registerUser(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
         validate.password(body.get("password"), body.get("retypedPassword"));
-        userService.createUser(body.get("username"), passwordEncoder.encode(body.get("password")));
+        userService.createUser(body.get("username"), body.get("password"));
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "user_registered");
         return "redirect:/";
@@ -53,7 +52,7 @@ public class AuthController {
     @PostMapping("admin/new-admin")
     public String registerAdmin(@RequestParam Map<String, String> body, Model model, RedirectAttributes redirectAttributes) {
         validate.password(body.get("password"), body.get("retypedPassword"));
-        userService.createAdmin(body.get("username"), passwordEncoder.encode(body.get("password")));
+        userService.createAdmin(body.get("username"), body.get("password"));
         redirectAttributes.addFlashAttribute("class", "alert-success");
         redirectAttributes.addFlashAttribute("message", "admin_created");
         return "redirect:/admin";
