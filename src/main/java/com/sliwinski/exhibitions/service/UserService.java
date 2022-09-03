@@ -5,6 +5,7 @@ import com.sliwinski.exhibitions.entity.User;
 import com.sliwinski.exhibitions.exception.UserExistsException;
 import com.sliwinski.exhibitions.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -39,6 +41,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(password));
             user.setRole(Role.USER);
             userRepository.save(user);
+            log.info("User created: {}", user.getUsername());
         } else throw new UserExistsException();
     }
 
@@ -50,6 +53,7 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(password));
             user.setRole(Role.ADMIN);
             userRepository.save(user);
+            log.info("Admin created: {}", user.getUsername());
         } else throw new UserExistsException();
     }
 }

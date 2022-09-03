@@ -40,6 +40,7 @@ public class HomeController {
     public String getHome() {
         return "redirect:/exhibitions?page=1";
     }
+
     @GetMapping("/exhibitions")
     public String getExhibitions(@ModelAttribute Search search,
                                  @RequestParam(required = false) Integer page,
@@ -47,13 +48,12 @@ public class HomeController {
                                  Model model) {
         authService.addUsernameAttribute(model);
         int pageNumber = page != null && page > 0 ? page : 1;
-        if(resetFilter) {
-            search = newSearch();
-            model.addAttribute("search", search);
-        }
+        if(resetFilter) search = newSearch();
         Page<Exhibition> exhibitionsPage = exhibitionService.searchAndSortActiveExhibitions(
-                    search.getFrom(), search.getTo(), pageNumber-1, search.getSort().direction(), search.getSort().field());
+                    search.getFrom(), search.getTo(), pageNumber-1,
+                    search.getSort().direction(), search.getSort().field());
         model.addAttribute("totalPages", exhibitionsPage.getTotalPages());
+        model.addAttribute("search", search);
         model.addAttribute("exhibitions", exhibitionsPage.getContent());
         model.addAttribute("page", pageNumber);
         return "home";

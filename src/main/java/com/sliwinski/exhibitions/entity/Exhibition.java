@@ -40,5 +40,4 @@ public class Exhibition {
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "EXHIBITIONS_LOCATIONS", joinColumns = @JoinColumn(name = "EXHIBITION_ID"), inverseJoinColumns = @JoinColumn(name = "LOCATION_ID"))
     private List<Location> locations;
-
 }

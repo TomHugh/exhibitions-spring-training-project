@@ -3,6 +3,7 @@ package com.sliwinski.exhibitions.service;
 import com.sliwinski.exhibitions.entity.Exhibition;
 import com.sliwinski.exhibitions.exception.NoSuchExhibitionException;
 import com.sliwinski.exhibitions.repository.ExhibitionRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 @Service
+@Slf4j
 public class ExhibitionService {
     private final int PAGE_SIZE = 5;
     private final int ADMIN_PAGE_SIZE = 10;
@@ -35,6 +37,7 @@ public class ExhibitionService {
 
     public void createExhibition(Exhibition exhibition) {
         exhibitionRepository.save(exhibition);
+        log.info("Exhibition created: {}", exhibition.getTheme());
     }
 
     public Exhibition getExhibition(int exhibitionId) {
@@ -48,6 +51,7 @@ public class ExhibitionService {
     @Transactional
     public void cancelExhibition(int id) {
         exhibitionRepository.cancelById(id);
+        log.info("Exhibition canceled. Id: {}", id);
     }
 
 }

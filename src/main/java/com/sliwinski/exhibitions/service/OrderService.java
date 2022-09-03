@@ -7,6 +7,7 @@ import com.sliwinski.exhibitions.repository.OrderRepository;
 import com.sliwinski.exhibitions.service.utility.Cart;
 import com.sliwinski.exhibitions.service.utility.Item;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class OrderService {
     private final int PAGE_SIZE = 10;
 
@@ -52,6 +54,7 @@ public class OrderService {
 
     @Transactional
     public void saveCart(Cart cart) {
+        log.info("Preparing to save cart");
         List<Item> items = cart.getItems();
         for(Item item : items) {
             for(int i=0; i<item.getQuantity(); i++) {
@@ -62,5 +65,6 @@ public class OrderService {
                 orderRepository.save(order);
             }
         }
+        log.info("Cart saved");
     }
 }

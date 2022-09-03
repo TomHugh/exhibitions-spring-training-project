@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset tsliwinski:1
+
 INSERT INTO USERS (USERNAME, PASSWORD, ROLE) VALUES
 ('admin', '$2a$10$Rs6OCZ1cq2IVVVU0SqUnL.4s3WMDqAf1TgxVavND/NHzLOZfrgWqO', 'admin'),
 ('user', '$2a$10$S6bhKvW538VGJt/1U05s/uIdsgxvA09Rv3RT/5B0Zr4PkYDdvn8N2', 'user');

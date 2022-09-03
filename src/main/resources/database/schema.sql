@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset tsliwinski:1
+
 CREATE TABLE USERS (
     USER_ID BIGINT AUTO_INCREMENT PRIMARY KEY,
     USERNAME VARCHAR(128) NOT NULL UNIQUE,

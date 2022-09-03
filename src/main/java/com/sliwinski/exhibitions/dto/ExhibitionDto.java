@@ -8,6 +8,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ExhibitionDto {
     private int id;
     private String theme;

@@ -3,6 +3,7 @@ package com.sliwinski.exhibitions.service;
 import com.sliwinski.exhibitions.entity.Location;
 import com.sliwinski.exhibitions.repository.ExhibitionRepository;
 import com.sliwinski.exhibitions.repository.LocationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class LocationService {
     private final int PAGE_SIZE = 10;
 
@@ -32,6 +34,7 @@ public class LocationService {
 
     public void createLocation(Location location) {
         locationRepository.save(location);
+        log.info("Location created: {}", location.getName());
     }
 
     public Page<Location> getAllLocations(int page) {
