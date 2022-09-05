@@ -126,26 +126,13 @@ public class ExhibitionControllerTest {
                 .andExpect(view().name("check-locations"));
     }
 
-    @Test
-    public void postCheckLocations() throws Exception {
-        DATES_LOCATIONS.setStartDate(LocalDate.now());
-        DATES_LOCATIONS.setEndDate(LocalDate.now());
-        Mockito.when(locationService.checkAvailability(Mockito.any(LocalDate.class),
-                Mockito.any(LocalDate.class))).thenReturn(Collections.singletonList(LOCATION));
-        mockMvc.perform(post("/admin/exhibitions/new/check-locations")
-                    .with(SecurityMockMvcRequestPostProcessors.user("admin")
-                            .authorities(List.of(new SimpleGrantedAuthority("ADMIN"))))
-                .flashAttr("datesLocations", DATES_LOCATIONS))
-                .andExpect(flash().attribute("datesLocations", DATES_LOCATIONS))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/admin/exhibitions/new/details"));
-    }
 
     @Test
     public void getDetails() throws Exception {
         DATES_LOCATIONS.setStartDate(LocalDate.now());
-        DATES_LOCATIONS.setEndDate(LocalDate.now());
-        DATES_LOCATIONS.setLocations(Collections.singletonList(LOCATION));
+        DATES_LOCATIONS.setEndDate(LocalDate.now().plusDays(2));
+        Mockito.when(locationService.checkAvailability(Mockito.any(LocalDate.class),
+                Mockito.any(LocalDate.class))).thenReturn(Collections.singletonList(LOCATION));
         mockMvc.perform(get("/admin/exhibitions/new/details")
                 .with(SecurityMockMvcRequestPostProcessors.user("admin")
                         .authorities(List.of(new SimpleGrantedAuthority("ADMIN"))))

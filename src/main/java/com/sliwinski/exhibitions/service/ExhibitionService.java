@@ -41,11 +41,11 @@ public class ExhibitionService {
     }
 
     public Exhibition getExhibition(int exhibitionId) {
-        return exhibitionRepository.findByIdFetchLocations(exhibitionId).orElseThrow(() -> new NoSuchExhibitionException());
+        return exhibitionRepository.findByIdFetchLocations(exhibitionId).orElseThrow(NoSuchExhibitionException::new);
     }
 
     public Exhibition findExhibition(int exhibitionId) {
-        return exhibitionRepository.findById(exhibitionId).orElseThrow(() -> new NoSuchExhibitionException());
+        return exhibitionRepository.findById(exhibitionId).orElseThrow(NoSuchExhibitionException::new);
     }
 
     @Transactional

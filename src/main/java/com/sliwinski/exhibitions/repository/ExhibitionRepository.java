@@ -28,7 +28,7 @@ public interface ExhibitionRepository extends JpaRepository<Exhibition, Integer>
     @Query("select e from Exhibition e join fetch e.locations where e.id = ?1")
     Optional<Exhibition> findByIdFetchLocations(int exhibitionId);
 
-    @Query("select e.locations from Exhibition e where e.startDate < :endDate and e.endDate > :startDate")
+    @Query("select e.locations from Exhibition e where e.startDate < :endDate and e.endDate > :startDate and e.isActive = true")
     Set<Location> findOccupiedLocations(LocalDate startDate, LocalDate endDate);
 
     @Modifying

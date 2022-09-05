@@ -30,7 +30,7 @@
                                 <p th:text="#{ticket_price}" class="card-text">Ticket price:</p>
                                 <p th:text="${exhibition.ticketPrice}" class="card-text">Ticket price</p>
                                 <div class = "col-auto">
-                                    <a th:href="'/admin/exhibitions/cancel/' + ${exhibition.id}" th:text="#{cancel}" role="button" class="btn btn-outline-danger">Cancel</a>
+                                    <a th:if="${exhibition.isActive}" th:href="'/admin/exhibitions/cancel/' + ${exhibition.id}" th:text="#{cancel}" role="button" class="btn btn-outline-danger">Cancel</a>
                                 </div>
                             </div>
                         </div>

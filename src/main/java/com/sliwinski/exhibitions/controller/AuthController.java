@@ -3,7 +3,6 @@ package com.sliwinski.exhibitions.controller;
 import com.sliwinski.exhibitions.service.UserService;
 import com.sliwinski.exhibitions.service.validator.Validate;
 import lombok.AllArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -28,6 +25,13 @@ public class AuthController {
     @GetMapping("/signin")
     public String getSignin(Model model) {
         return "signin";
+    }
+
+    @GetMapping("/bad-credentials")
+    public String getBadCredentials(Model model, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("class", "alert-danger");
+        redirectAttributes.addFlashAttribute("message", "bad_credentials");
+        return "redirect:/signin";
     }
 
     @GetMapping("/register")

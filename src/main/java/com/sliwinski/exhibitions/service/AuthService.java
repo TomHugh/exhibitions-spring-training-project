@@ -9,13 +9,11 @@ import org.springframework.ui.Model;
 public class AuthService {
 
     public User getUser() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user;
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     public String getUsername() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return username;
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     public void addUsernameAttribute(Model model){

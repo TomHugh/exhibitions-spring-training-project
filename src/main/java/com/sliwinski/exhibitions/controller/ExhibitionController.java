@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @AllArgsConstructor
-@SessionAttributes("search")
+@SessionAttributes({"search", "exhibition"})
 @RequestMapping("/admin")
 public class ExhibitionController {
     private final ExhibitionService exhibitionService;
@@ -27,6 +27,11 @@ public class ExhibitionController {
     @ModelAttribute("search")
     public Search newSearch() {
         return new Search();
+    }
+
+    @ModelAttribute("exhibition")
+    public Exhibition newExhibition() {
+        return new Exhibition();
     }
 
     @GetMapping("/exhibitions")
@@ -72,17 +77,10 @@ public class ExhibitionController {
         model.addAttribute("datesLocations", new DatesLocations());
         return "check-locations";
     }
-
-    @PostMapping("/exhibitions/new/check-locations")
-    public String postCheckLocations(@ModelAttribute DatesLocations datesLocations, Model model, RedirectAttributes redirectAttributes) {
-        validate.startEndDates(datesLocations.getStartDate(), datesLocations.getEndDate());
-        datesLocations.setLocations(locationService.checkAvailability(datesLocations.getStartDate(), datesLocations.getEndDate()));
-        redirectAttributes.addFlashAttribute("datesLocations", datesLocations);
-        return "redirect:/admin/exhibitions/new/details";
-    }
-
     @GetMapping("/exhibitions/new/details")
     public String getDetails(@ModelAttribute DatesLocations datesLocations, Model model) {
+        validate.startEndDates(datesLocations.getStartDate(), datesLocations.getEndDate());
+        datesLocations.setLocations(locationService.checkAvailability(datesLocations.getStartDate(), datesLocations.getEndDate()));
         Exhibition exhibition = new Exhibition();
         exhibition.setStartDate(datesLocations.getStartDate());
         exhibition.setEndDate(datesLocations.getEndDate());

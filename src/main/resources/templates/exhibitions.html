@@ -60,7 +60,6 @@
                     <th>
                         <div class="btn-group" role="group">
                             <a th:text="#{details}" th:href="'/admin/exhibitions/' + ${exhibitionDto.id}" role="button" class="btn btn-outline-primary">Details</a>
-                            <a th:text="#{edit}" th:href="'/admin/exhibitions/edit/' + ${exhibitionDto.id}" role="button" class="btn btn-outline-success">Edit</a>
                             <a th:if="${exhibitionDto.isActive}" th:text="#{cancel}" th:href="'/admin/exhibitions/cancel/' + ${exhibitionDto.id}" role="button" class="btn btn-outline-danger">Cancel</a>
                         </div>
                     </th>

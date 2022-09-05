@@ -38,7 +38,7 @@ public class Validate {
         if(exhibition.getLocations().size() == 0) throw new EmptyLocationsException();
         if(exhibition.getTheme().equals("")) throw new EmptyThemeException();
         this.openingClosingHours(exhibition.getOpeningHour(), exhibition.getClosingHour());
-        if(exhibition.getTicketPrice() == null || exhibition.getTicketPrice() <= 0)  throw new BadTicketPriceException();
+        if(exhibition.getTicketPrice() == null || exhibition.getTicketPrice() <= 0) throw new BadTicketPriceException();
         return true;
     }
 }
