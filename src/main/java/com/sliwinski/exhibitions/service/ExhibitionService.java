@@ -50,8 +50,8 @@ public class ExhibitionService {
 
     @Transactional
     public void cancelExhibition(int id) {
-        exhibitionRepository.cancelById(id);
+        Exhibition exhibition = exhibitionRepository.findById(id).orElseThrow(NoSuchExhibitionException::new);
+        exhibition.setActive(false);
         log.info("Exhibition canceled. Id: {}", id);
     }
-
 }

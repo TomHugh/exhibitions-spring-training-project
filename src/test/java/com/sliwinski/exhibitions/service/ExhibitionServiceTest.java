@@ -21,8 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -95,6 +94,13 @@ public class ExhibitionServiceTest {
     public void findExhibition() {
         Mockito.when(exhibitionRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(EXHIBITION));
         assertEquals(EXHIBITION, exhibitionService.findExhibition(1));
+    }
+
+    @Test
+    public void cancelExhibition() {
+        Mockito.when(exhibitionRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(EXHIBITION));
+        exhibitionService.cancelExhibition(1);
+        assertFalse(EXHIBITION.isActive());
     }
 
 }

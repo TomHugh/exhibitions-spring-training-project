@@ -30,8 +30,4 @@ public interface ExhibitionRepository extends JpaRepository<Exhibition, Integer>
 
     @Query("select e.locations from Exhibition e where e.startDate < :endDate and e.endDate > :startDate and e.isActive = true")
     Set<Location> findOccupiedLocations(LocalDate startDate, LocalDate endDate);
-
-    @Modifying
-    @Query("update Exhibition e set e.isActive = false where e.id = :id")
-    void cancelById(int id);
 }

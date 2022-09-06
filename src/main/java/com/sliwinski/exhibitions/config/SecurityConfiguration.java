@@ -33,12 +33,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/signin").permitAll()
-                .successHandler((request, response, authentication) -> {
-                    if(authentication.getAuthorities().equals(List.of(new SimpleGrantedAuthority("ADMIN"))))
-                        response.sendRedirect("/admin");
-                    else
-                        response.sendRedirect("/");
-                })
+//                .successHandler((request, response, authentication) -> {
+//                    if(authentication.getAuthorities().equals(List.of(new SimpleGrantedAuthority("ADMIN"))))
+//                        response.sendRedirect("/admin");
+//                    else
+//                        response.sendRedirect("/");
+//                })
                 .failureUrl("/bad-credentials")
                 .and()
                 .logout().invalidateHttpSession(true)
