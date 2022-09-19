@@ -5,6 +5,10 @@ import com.sliwinski.exhibitions.dto.ExhibitionDto;
 
 import java.util.Objects;
 
+/**
+ * Class representing item in the cart.
+ */
+
 public class Item {
     private ExhibitionDto exhibitionDto;
     private int quantity;

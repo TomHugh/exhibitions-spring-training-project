@@ -11,6 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Consists of main view for administrator.
+ * The management of exhibitions and locations is separated in the respective controllers (ExhibitionController, LocationController).
+ */
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/admin")

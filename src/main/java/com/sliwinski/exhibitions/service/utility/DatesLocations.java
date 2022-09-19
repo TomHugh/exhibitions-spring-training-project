@@ -5,6 +5,10 @@ import com.sliwinski.exhibitions.entity.Location;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Class for storing start date, end date and locations of exhibition. Used at first step of creation of exhibition to provide free locations for given dates.
+ */
+
 public class DatesLocations {
     private LocalDate startDate;
     private LocalDate endDate;

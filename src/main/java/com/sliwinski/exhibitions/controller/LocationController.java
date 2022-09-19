@@ -9,6 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Consists of views related to manage locations.
+ * Only for administrator.
+ */
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/admin")

@@ -14,6 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * Consists of views related to manage exhibitions.
+ * Only for administrator.
+ */
+
 @Controller
 @AllArgsConstructor
 @SessionAttributes({"search", "exhibition"})

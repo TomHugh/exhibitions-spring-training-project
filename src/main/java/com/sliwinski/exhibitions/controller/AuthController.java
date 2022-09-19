@@ -13,6 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 
+/**
+ * Consists of views related to register and authenticate users.
+ * Both for the user and the administrator.
+ */
+
 @Controller
 @AllArgsConstructor
 @RequestMapping

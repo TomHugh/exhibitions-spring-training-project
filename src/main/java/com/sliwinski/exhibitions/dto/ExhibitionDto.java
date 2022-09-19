@@ -17,6 +17,4 @@ public class ExhibitionDto {
     private LocalTime openingHour;
     private LocalTime closingHour;
     private double ticketPrice;
-
-
 }

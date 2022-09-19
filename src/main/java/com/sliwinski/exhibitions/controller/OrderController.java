@@ -21,6 +21,11 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * Consists of views related to order entity.
+ * Both for the user and the administrator.
+ */
+
 @Controller
 @AllArgsConstructor
 @SessionAttributes("cart")

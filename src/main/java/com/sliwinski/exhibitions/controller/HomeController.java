@@ -15,6 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * Consists of main views for user.
+ * Placing order by user is separated at OrderController.
+ */
 
 @Controller
 @AllArgsConstructor
